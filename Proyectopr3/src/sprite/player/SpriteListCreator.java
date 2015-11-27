@@ -16,9 +16,8 @@ import javax.imageio.ImageIO;
  */
 public class SpriteListCreator {
 	
-	public static HashMap<String, ArrayList<BufferedImage>> SpriteHashCreator(){
+	public static HashMap<String, ArrayList<BufferedImage>> SpriteHashCreator(File directorioSprites){
 		HashMap<String, ArrayList<BufferedImage>> spritesJugador = new HashMap<>();
-		final File directorioSprites = new File("resources/Player");
 		for(File f : directorioSprites.listFiles()){
 			if(!f.isFile()){
 				try {

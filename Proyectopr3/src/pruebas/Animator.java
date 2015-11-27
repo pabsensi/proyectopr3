@@ -7,6 +7,7 @@ public class Animator {
 	ArrayList<BufferedImage> frames;
 	int defaultframe = 0;
 	BufferedImage sprite;
+	public volatile boolean jumping = false;
 	public volatile boolean running = false;
 	private long previousTime, speed;
 	private int frameAtPause, currentFrame;
@@ -31,8 +32,26 @@ public class Animator {
 				
 			}
 		}
-		if(!running)
+		else if(!running && !jumping)
 			sprite = frames.get(currentFrame);
+		else if(jumping){
+			if(time - previousTime >= speed){
+			//Update animation
+			currentFrame++;
+			System.out.println(currentFrame);
+			try{
+				sprite = frames.get(currentFrame);
+			}catch(IndexOutOfBoundsException e){
+				currentFrame = 0;
+				jumping = false;
+				sprite = frames.get(currentFrame);
+				
+			}
+			previousTime = time;
+			
+		}
+			
+		}
 	}
 	public void setSpeed(long speed){
 		this.speed = speed;
@@ -40,6 +59,13 @@ public class Animator {
 	}
 	public void start(){
 		running = true;
+		previousTime = 0;
+		frameAtPause = 0;
+		currentFrame = 0;
+	}
+	public void jump(){
+		running = false;
+		jumping = true;
 		previousTime = 0;
 		frameAtPause = 0;
 		currentFrame = 0;
