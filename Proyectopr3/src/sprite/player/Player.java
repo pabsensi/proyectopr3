@@ -22,11 +22,26 @@ public class Player {
 	volatile boolean jump;
 	private ArrayList<BufferedImage> currentAnim = new ArrayList<>();
 	final String default_anim = "running_right";
+	public JPanel pane;
 	HashMap<String, ArrayList<BufferedImage>> spriteHash = new HashMap<>();
 	public Player(){
+
 		spriteHash = SpriteListCreator.SpriteHashCreator(new File("resources/Player"));
 		currentAnim = spriteHash.get(default_anim);
 		sprite = currentAnim.get(currentFrame);
+		pane = new JPanel(){
+			@Override
+	        protected void paintComponent(Graphics g) {
+
+	            super.paintComponent(g);
+	            g.drawImage(sprite, 0, 0, null);
+
+				Player.this.update();
+				setSize(sprite.getWidth(), sprite.getHeight());
+				pane.setBorder(BorderFactory.createLineBorder(Color.red));
+	            repaint();
+	        }
+	    };
 		
 	}
 	public void update(){
@@ -40,14 +55,10 @@ public class Player {
 				prevAnim = currentAnim;
 				currentAnim = spriteHash.get("jump_left");
 			}
+			for(BufferedImage s : currentAnim){
 				currentFrame++;
 				System.out.println(currentFrame);
-			try{
-				sprite = currentAnim.get(currentFrame);
-			}catch(IndexOutOfBoundsException e){
-				currentFrame = 0;
-				currentAnim = prevAnim;
-				jump = false;
+				sprite = s;
 			}
 			try {
 				Thread.sleep(75);
@@ -55,8 +66,8 @@ public class Player {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			jump = false;
 		}
+
 		else if(animate){
 			currentFrame++;
 			System.out.println(currentFrame);
@@ -99,18 +110,6 @@ public class Player {
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
 		window.setSize(600, 800);
-		JPanel pane = new JPanel(){
-			@Override
-	        protected void paintComponent(Graphics g) {
-
-	            super.paintComponent(g);
-	            g.drawImage(jugador.sprite, 0, 0, null);
-	            setSize(jugador.sprite.getWidth(), jugador.sprite.getHeight());
-	            jugador.update();
-	            repaint();
-	        }
-		};
-		pane.setBorder(BorderFactory.createLineBorder(Color.red));
 	//	JPanel pane = new JPanel();
 	//	pane.getGraphics().drawImage(jugador.sprite,100,100, null);
 		window.addKeyListener(new KeyListener(){
@@ -150,7 +149,7 @@ public class Player {
 			}
 			
 		});
-		window.add(pane);
+		window.add(jugador.pane);
 		
 		
 	}
