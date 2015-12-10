@@ -91,6 +91,18 @@ public class MenuJuego extends JFrame{
 				
 			}
 	    });
+	    empezarPartida.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				setVisible(false);
+				Juego j = new Juego();
+				j.setVisible(true);
+				
+			}
+	    	
+	    });
 	    opciones.addActionListener(new ActionListener() {
 			
 			@Override

@@ -5,15 +5,14 @@ import java.util.ArrayList;
 
 public class Animator {
 	ArrayList<BufferedImage> frames;
-	int defaultframe = 0;
-	BufferedImage sprite;
+	private final int defaultframe = 0;
+	public BufferedImage sprite;
 	public volatile boolean jumping = false;
 	public volatile boolean running = false;
 	private long previousTime, speed;
 	private int frameAtPause, currentFrame;
 	public Animator(ArrayList<BufferedImage> frames){
 		this.frames = frames;
-		
 	}
 	public void update(long time){
 		if(running){
@@ -31,25 +30,6 @@ public class Animator {
 				previousTime = time;
 				
 			}
-		}
-		else if(!running && !jumping)
-			sprite = frames.get(currentFrame);
-		else if(jumping){
-			if(time - previousTime >= speed){
-			//Update animation
-			currentFrame++;
-			System.out.println(currentFrame);
-			try{
-				sprite = frames.get(currentFrame);
-			}catch(IndexOutOfBoundsException e){
-				currentFrame = 0;
-				jumping = false;
-				sprite = frames.get(currentFrame);
-				
-			}
-			previousTime = time;
-			
-		}
 			
 		}
 	}

@@ -25,7 +25,6 @@ public class Player {
 	public JPanel pane;
 	HashMap<String, ArrayList<BufferedImage>> spriteHash = new HashMap<>();
 	public Player(){
-
 		spriteHash = SpriteListCreator.SpriteHashCreator(new File("resources/Player"));
 		currentAnim = spriteHash.get(default_anim);
 		sprite = currentAnim.get(currentFrame);
