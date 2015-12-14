@@ -2,6 +2,7 @@
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import objects.Bullet;
 import objects.Player;
 import framework.GameObject;
 import framework.ObjectId;
@@ -13,26 +14,35 @@ public class Controles extends KeyAdapter {
 	}
 	public void keyPressed(KeyEvent e){
 		int key = e.getKeyCode();
-			for(GameObject object : handler.objectlist){
-				if(object instanceof Player){
+		GameObject tempObject;
+			for(int i=0; i<handler.objectlist.size(); i++){
+				if(handler.objectlist.get(i) instanceof Player){
+					tempObject = handler.objectlist.get(i);
 					if(key== KeyEvent.VK_RIGHT){
-					object.setMovingRight(true);
-					object.setMovingLeft(false);
+					tempObject.setMovingRight(true);
+					tempObject.setMovingLeft(false);
 					}
 				if(e.getKeyCode() == KeyEvent.VK_LEFT){
-					object.setMovingRight(false);
-					object.setMovingLeft(true);
+					tempObject.setMovingRight(false);
+					tempObject.setMovingLeft(true);
 					}
-			}
+				if(e.getKeyCode() == KeyEvent.VK_SPACE)
+					tempObject.setJumping(true);
+				if(e.getKeyCode() == KeyEvent.VK_Z)
+					if(tempObject.isFacingRight())
+					handler.addObject(new Bullet(tempObject.getX()+(tempObject.getBounds().width), tempObject.getY()+3, ObjectId.Bullet, handler.objectlist.get(i).isFacingRight()));
+					else
+						handler.addObject(new Bullet(tempObject.getX(), tempObject.getY()+3, ObjectId.Bullet, handler.objectlist.get(i).isFacingRight()));
+				}
 			}
 	}
 	public void keyReleased(KeyEvent e){
-		for(GameObject object : handler.objectlist){
-			if(object instanceof Player){
+		for(int i=0; i<handler.objectlist.size(); i++){
+			if(handler.objectlist.get(i) instanceof Player){
 				if(e.getKeyCode() == KeyEvent.VK_RIGHT)
-				object.setMovingRight(false);
+					handler.objectlist.get(i).setMovingRight(false);
 				if(e.getKeyCode() == KeyEvent.VK_LEFT)
-				object.setMovingLeft(false);
+					handler.objectlist.get(i).setMovingLeft(false);
 		}
 		}
 	}

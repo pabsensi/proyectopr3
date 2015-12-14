@@ -9,13 +9,13 @@ public class Handler {
 	
 	
 	public void render(Graphics g){
-		for(GameObject object : objectlist){
-			object.render(g);
+		for(int i=0; i<objectlist.size(); i++){
+			objectlist.get(i).render(g);
 		}
 	}
 	public void tick(){
-		for(GameObject object : objectlist){
-			object.tick(objectlist);
+		for(int i=0; i<objectlist.size(); i++){
+			objectlist.get(i).tick(objectlist);
 		}
 	}
 	public void addObject(GameObject object){

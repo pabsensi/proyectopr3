@@ -6,6 +6,7 @@ import java.util.Random;
 
 import objects.Block;
 import objects.Player;
+import objects.Test;
 import framework.GameObject;
 import framework.ObjectId;
 

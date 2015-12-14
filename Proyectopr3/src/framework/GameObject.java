@@ -2,10 +2,17 @@ package framework;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public abstract class GameObject {
+	protected boolean facingRight;
+	public boolean isFacingRight() {
+		return facingRight;
+	}
+	protected volatile boolean shoot;
 	protected ObjectId id;
+	volatile BufferedImage sprite;
 	protected boolean movingRight= false, movingLeft = false;
 	public boolean isMovingRight() {
 		return movingRight;
@@ -71,5 +78,10 @@ public abstract class GameObject {
 	}
 	public ObjectId getId(){
 		return id;
+	}
+	public void setShoot(boolean b) {
+		// TODO Auto-generated method stub
+		shoot = b;
+		
 	}
 }
