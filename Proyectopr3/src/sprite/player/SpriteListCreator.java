@@ -17,16 +17,14 @@ import javax.imageio.ImageIO;
 public class SpriteListCreator {
 	
 	public static HashMap<String, ArrayList<BufferedImage>> SpriteHashCreator(File directorioSprites){
-		HashMap<String, ArrayList<BufferedImage>> spritesJugador = new HashMap<>();
+		HashMap<String, ArrayList<BufferedImage>> spritesJugador = new HashMap<String, ArrayList<BufferedImage>>();
 		for(File f : directorioSprites.listFiles()){
-			if(!f.isFile()){
 				try {
 					spritesJugador.put(f.getName(), SpriteArrayCreator(f));
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}
 		}
 		return spritesJugador;
 	}
@@ -38,12 +36,18 @@ public class SpriteListCreator {
 	 * @throws IOException
 	 */
 	public static ArrayList<BufferedImage> SpriteArrayCreator(File images) throws IOException{
-		ArrayList<BufferedImage> imageArray = new ArrayList<>();
+		ArrayList<BufferedImage> imageArray = new ArrayList<BufferedImage>();
+		if(images.isDirectory()){
 		for(File f: images.listFiles()){
 			if(f.getName().endsWith(".png")){
 				BufferedImage sprite = ImageIO.read(f);
 				imageArray.add(sprite);
 			}
+		}
+		}
+		else if(images.isFile() && images.getName().endsWith(".png")){
+			BufferedImage sprite = ImageIO.read(images);
+			imageArray.add(sprite);
 		}
 		return imageArray;
 	}

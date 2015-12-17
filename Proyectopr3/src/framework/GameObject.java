@@ -4,7 +4,14 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-
+/**
+ * Clase GameObject para todos los objetos que se van a introducir en pantalla.
+ * Cada objeto de juego que se muestre en pantalla deberá tener obligatoriamente
+ * un sprite, una posición x e y, y una velocidad x e y, tanto como bounds para 
+ * la colisión que se definen desde los propios objetos.
+ * @author Pablosensi
+ *
+ */
 public abstract class GameObject {
 	protected boolean facingRight;
 	public boolean isFacingRight() {
@@ -27,7 +34,7 @@ public abstract class GameObject {
 		this.movingLeft = movingLeft;
 	}
 	protected float x, y;
-	protected boolean falling = true;
+	protected boolean falling = false;
 	protected boolean jumping = false;
 	public boolean isFalling() {
 		return falling;
@@ -82,6 +89,10 @@ public abstract class GameObject {
 	public void setShoot(boolean b) {
 		// TODO Auto-generated method stub
 		shoot = b;
+		
+	}
+	public void setCrouching(boolean b) {
+		// TODO Auto-generated method stub
 		
 	}
 }

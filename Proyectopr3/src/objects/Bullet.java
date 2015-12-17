@@ -11,10 +11,13 @@ import javax.imageio.ImageIO;
 
 import framework.GameObject;
 import framework.ObjectId;
-
+/**
+ * Clase bala, que dispara el personaje
+ * @author Pablosensi
+ *
+ */
 public class Bullet extends GameObject {
 	volatile BufferedImage sprite;
-	
 	public Bullet(float x, float y, ObjectId id, boolean right) {
 		super(x, y, id);
 		if(right){
@@ -63,7 +66,7 @@ public class Bullet extends GameObject {
 	@Override
 	public Rectangle getBounds() {
 		// TODO Auto-generated method stub
-		return null;
+		return new Rectangle((int)x, (int)y, sprite.getWidth(), sprite.getHeight());
 	}
 
 }

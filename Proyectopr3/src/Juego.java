@@ -6,28 +6,29 @@ import java.util.Random;
 
 import objects.Block;
 import objects.Player;
-import objects.Test;
 import framework.GameObject;
 import framework.ObjectId;
 
 
 public class Juego extends Canvas implements Runnable {
 	/**
-	 * 
+	 * Clase juego, que es lo que se ejecutará con cada partida según el mapa que le mandemos
 	 */
 	
 	private static final long serialVersionUID = 565656L;
 	private boolean running = false;
 	private Thread thread;
 	GameObject object;
-	Test test;
 	Handler handler;
 	Random rand = new Random();
-	
+	/**
+	 * Método de inicialización, desde aquí se crea un nuevo handler y se añaden
+	 * los objetos iniciales del juego, junto con un keylistener para los controles
+	 */
 	private void init(){
 		handler = new Handler();
 		for(int i =0; i<getWidth() ; i += 32)
-		handler.addObject(new Block(i, getHeight()-32, ObjectId.Test));
+		handler.addObject(new Block(i, getHeight()-32, ObjectId.Block));
 		handler.addObject(new Player(100, 100, ObjectId.Player));
 		addKeyListener(new Controles(handler));
 	}
@@ -46,6 +47,9 @@ public class Juego extends Canvas implements Runnable {
 			thread = new Thread(this);
 			thread.start();
 	}
+	/**
+	 * Método que se ejecutará en un hilo de juego
+	 */
 	public void run() {
 		init();
 		this.requestFocus();
@@ -81,6 +85,9 @@ public class Juego extends Canvas implements Runnable {
 	private void tick(){
 		handler.tick();
 	}
+	/**
+	 * Método que renderiza el fondo del juego
+	 */
 	//número de buffers (para que cargue más cosas)
 	private void render(){
 		BufferStrategy bs = this.getBufferStrategy();

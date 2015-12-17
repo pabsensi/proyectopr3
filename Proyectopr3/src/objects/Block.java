@@ -7,7 +7,11 @@ import java.util.ArrayList;
 import framework.GameObject;
 import framework.ObjectId;
 
-
+/**
+ * Clase bloque, de la que se compondrá el suelo y las plataformas
+ * @author Pablosensi
+ *
+ */
 public class Block extends GameObject {
 
 	public Block(float x, float y, ObjectId id) {

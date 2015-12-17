@@ -3,7 +3,12 @@ import java.util.ArrayList;
 
 import framework.GameObject;
 
-
+/**
+ * Handler del juego, que se encarga de renderizar y acualizar cada objeto que introduzcamos
+ * en el arraylist de objetos de juego.
+ * @author Pablosensi
+ *
+ */
 public class Handler {
 	public ArrayList<GameObject> objectlist = new ArrayList<GameObject>();
 	
