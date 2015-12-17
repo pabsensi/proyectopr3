@@ -2,6 +2,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.sql.SQLException;
 import java.util.Random;
 
 import objects.Block;
@@ -31,6 +32,7 @@ public class Juego extends Canvas implements Runnable {
 		handler.addObject(new Block(i, getHeight()-32, ObjectId.Block));
 		handler.addObject(new Player(100, 100, ObjectId.Player));
 		addKeyListener(new Controles(handler));
+	
 	}
 	
 	public Juego(){
