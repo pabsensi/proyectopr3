@@ -68,7 +68,6 @@ public class Player extends GameObject {
 						animador.setFrames(spriteHash.get("running_right"));
 					else
 						animador.setFrames(spriteHash.get("running_left"));
-
 					y = TempObject.getY()-animador.sprite.getHeight();
 					break;
 				}

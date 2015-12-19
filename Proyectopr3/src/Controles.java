@@ -31,7 +31,7 @@ public class Controles extends KeyAdapter {
 			Crouch = rs.getInt(1);
 		rs= BaseDeDatos.getStatement().executeQuery("select tecla from basecontroles where boton='saltar'");
 			Jump = rs.getInt(1);
-		rs= BaseDeDatos.getStatement().executeQuery("select tecla from basecontroles where boton='saltar'");
+		rs= BaseDeDatos.getStatement().executeQuery("select tecla from basecontroles where boton='disparar'");
 			Shoot = rs.getInt(1);
 		} catch (SQLException | java.lang.NullPointerException e) {
 			Logger.getLogger("ERROR EN LA BASE DE DATOS");
