@@ -30,6 +30,10 @@ public class Juego extends Canvas implements Runnable {
 		handler = new Handler();
 		for(int i =0; i<getWidth() ; i += 32)
 		handler.addObject(new Block(i, getHeight()-32, ObjectId.Block));
+		for(int i=getWidth()/3;i< (int)(getWidth()*2)/3;i+=32){ 
+		handler.addObject(new Block(i+5, getHeight()-100,ObjectId.Block));
+		handler.addObject(new Block(i+7, getHeight()-200,ObjectId.Block));
+		}
 		handler.addObject(new Player(100, 100, ObjectId.Player));
 		addKeyListener(new Controles(handler));
 	
