@@ -81,5 +81,17 @@ public class BaseDeDatos {
 			// e.printStackTrace();  
 		}
 	}
+	public static void crearTablaBD2() {
+		//executeQuery es para seleccionar cosas de la base de datos
+		if (statement==null) return;
+		try {
+			//SQL como en BD
+			//statement.executeUpdate("create table BaseControles (tecla integer, boton string)");
+			statement.executeUpdate("create table BaseJugadoresDef (jugador string,puntuacion integer,numJugador integer)");
+		} catch (SQLException e) {
+			// Si hay excepción es que la tabla ya existía (lo cual es correcto)
+			// e.printStackTrace();  
+		}
+	}
 
 }

@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,6 +25,7 @@ public class MenuJuego extends JFrame{
 	public static JButton listaControles;
 	public static JButton opciones;
 	public static JButton empezarPartida;
+	public static JButton aceptar;
 	static JLabel fondoMenu =new LabelEscalado("metal slug.png",800,600);
 	static JLabel fondoControles =new LabelEscalado("LogoControles.jpg",30,30);
 	//pabsensi
@@ -57,6 +59,7 @@ public class MenuJuego extends JFrame{
 	    opciones=new JButton("Opciones");
 	    empezarPartida=new JButton("Play");
 	    nombre=new JLabel("Nombre");
+	    aceptar=new JButton("Aceptar");
 	    texto=new JTextField();
 	   
 	   
@@ -64,6 +67,7 @@ public class MenuJuego extends JFrame{
 	    panelBotones.add(listaControles);
 	    panelBotones.add(empezarPartida); 
 	    panelBotones.add(opciones);
+	    
 	    //pabsensi
 	    //panelPrincipal.add(pabsensi);
 	    //asier
@@ -74,6 +78,7 @@ public class MenuJuego extends JFrame{
 	   
 	    panelJugador.add(nombre);
 	    panelJugador.add(texto);
+	    panelJugador.add(aceptar);
 	    //pabsensi
 	    pabsensi.setLocation(450,190);
 	    //asier
@@ -88,6 +93,25 @@ public class MenuJuego extends JFrame{
 				// TODO Auto-generated method stub
 				VentanaControles c=new VentanaControles("CONTROLES");
 				c.setVisible(true);
+				
+			}
+	    });
+	    aceptar.addActionListener(new ActionListener(){
+	    	@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+	    		String sql;
+	    		try {
+					//PARA INTRODUCIR LOS DATOS DE UNA TABLA sin método 
+	    			
+					//sql="insert into BaseJugadoresDef values ('"+texto.getText()+"',0,0)";
+					sql="update BaseJugadoresDef set jugador='"+texto.getText()+"' where numJugador=0";
+					BaseDeDatos.getStatement().execute(sql);
+					System.out.println(sql);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 			}
 	    });
@@ -132,6 +156,7 @@ public class MenuJuego extends JFrame{
 		//Damos nombre y creamos la base d datos
 		BaseDeDatos.initBD("base");
 		BaseDeDatos.crearTablaBD();
+		BaseDeDatos.crearTablaBD2();
 	}
 
 }
