@@ -62,13 +62,13 @@ public class VentanaControles extends JFrame {
 			
 
 		//Hay que añador dos columnas una de descripción y otra del dibujo de los controles
-		derecha= new JButton("DERECHA: D");
-		izquierda= new JButton("IZQUIERDA: A");
-		arriba=new JButton("ARRIBA: W");
-		agachar= new JButton("AGACHARSE: S");
-		saltar= new JButton("SALTAR: SPACE");
-		disparar= new JButton("DISPARAR: J");
-		hacer= new JButton("GRANADA: K");
+		derecha= new JButton("DERECHA");
+		izquierda= new JButton("IZQUIERDA");
+		arriba=new JButton("ARRIBA");
+		agachar= new JButton("AGACHARSE");
+		saltar= new JButton("SALTAR");
+		disparar= new JButton("DISPARAR");
+		hacer= new JButton("GRANADA");
 
 		drch.setIcon(new ImageIcon("drch.PNG"));
 		izq.setIcon(new ImageIcon("izq.PNG"));
