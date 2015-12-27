@@ -39,7 +39,7 @@ public class Juego extends Canvas implements Runnable {
 		addKeyListener(new Controles(handler));
 		
 		handler.addObject(new Enemigos(200, 200, ObjectId.Enemigos));
-		
+		//addKeyListener(new Controles(handler));
 
 	}
 	

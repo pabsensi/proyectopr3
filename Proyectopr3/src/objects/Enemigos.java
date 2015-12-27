@@ -21,7 +21,7 @@ public class Enemigos extends GameObject {
 	private BufferedImage sprite;
 	private int spriteWidth, spriteHeight;
 	private ArrayList<BufferedImage> currentAnim2 = new ArrayList<>();
-	private final String default_anim = "walking_right";
+	private final String default_anim = "idle_right";
 	private HashMap<String, ArrayList<BufferedImage>> spriteHash = new HashMap<String, ArrayList<BufferedImage>>();
 	
 	public Enemigos(float x, float y, ObjectId id){
@@ -74,7 +74,7 @@ public class Enemigos extends GameObject {
 			if(jumping || falling)
 			animador.setFrames(spriteHash.get("jumping.png"));
 			else if(crouching)
-			animador.setFrames(spriteHash.get("iddle_right"));
+			animador.setFrames(spriteHash.get("attack_right"));
 			else
 				animador.setFrames(spriteHash.get("walking_right"));
 			facingRight=true;
@@ -85,7 +85,7 @@ public class Enemigos extends GameObject {
 			if(jumping || falling)
 			animador.setFrames(spriteHash.get("jumping.png"));
 			else if(crouching)
-			animador.setFrames(spriteHash.get("iddle_left"));
+			animador.setFrames(spriteHash.get("attack_left"));
 			else
 				animador.setFrames(spriteHash.get("walking_left"));
 			facingRight = false;
@@ -103,15 +103,15 @@ public class Enemigos extends GameObject {
 		}
 		if(crouching && !movingRight && !movingLeft){
 			if(facingRight)
-				animador.setFrames(spriteHash.get("iddle_right"));
+				animador.setFrames(spriteHash.get("attack_right"));
 			else
-				animador.setFrames(spriteHash.get("iddle_left"));
+				animador.setFrames(spriteHash.get("attack_left"));
 		}
 		if(!(movingRight||movingLeft||falling||jumping||crouching))
 			if(facingRight)
-				animador.setFrames(spriteHash.get("walking_right"));
+				animador.setFrames(spriteHash.get("idle_right"));
 			else
-				animador.setFrames(spriteHash.get("walking_left"));
+				animador.setFrames(spriteHash.get("idle_left"));
 			
 	}
 
@@ -124,7 +124,7 @@ public class Enemigos extends GameObject {
 		// TODO Auto-generated method stub
 		g.drawImage(sprite, (int)x, (int)y, null);
 		Graphics2D g2d= (Graphics2D) g;
-		g.setColor(Color.red);
+		g.setColor(Color.yellow);
 		g2d.draw(getBounds());
 		g2d.draw(getBoundsTop());
 		g2d.draw(getBoundsLeft());
