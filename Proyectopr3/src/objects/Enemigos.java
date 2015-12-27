@@ -20,19 +20,20 @@ public class Enemigos extends GameObject {
 	private float gravity = 0.5f;
 	private BufferedImage sprite;
 	private int spriteWidth, spriteHeight;
-	private ArrayList<BufferedImage> currentAnim = new ArrayList<>();
-	private final String default_anim = "running_right";
+	private ArrayList<BufferedImage> currentAnim2 = new ArrayList<>();
+	private final String default_anim = "walking_right";
 	private HashMap<String, ArrayList<BufferedImage>> spriteHash = new HashMap<String, ArrayList<BufferedImage>>();
 	
 	public Enemigos(float x, float y, ObjectId id){
 		super(x, y, id);
 		facingRight = true;
-		spriteHash = SpriteListCreator.SpriteHashCreator(new File("resources/Player"));
-		currentAnim = spriteHash.get(default_anim);
-		sprite = currentAnim.get(0);
+		//meter el fichero con los sprites del enemigo
+		spriteHash = SpriteListCreator.SpriteHashCreator(new File("resources/Enemy1"));
+		currentAnim2 = spriteHash.get(default_anim);
+		sprite = currentAnim2.get(0);
 		spriteHeight = sprite.getHeight();
 		spriteWidth = sprite.getWidth();
-		animador = new Animator(currentAnim);
+		animador = new Animator(currentAnim2);
 	}
 	private void Collision(ArrayList<GameObject> object){
 		for(int i =0; i<object.size(); i++){
@@ -42,9 +43,9 @@ public class Enemigos extends GameObject {
 					falling =false;
 					velY=0;
 					if(facingRight)
-						animador.setFrames(spriteHash.get("running_right"));
+						animador.setFrames(spriteHash.get("walking_right"));
 					else
-						animador.setFrames(spriteHash.get("running_left"));
+						animador.setFrames(spriteHash.get("walking_left"));
 					y = TempObject.getY()-animador.sprite.getHeight();
 					break;
 				}
@@ -53,7 +54,7 @@ public class Enemigos extends GameObject {
 			}
 		}
 	}
-	public void tick(ArrayList<GameObject> object) {
+	public void tick(ArrayList<GameObject> object)  {
 		System.out.println(falling);
 		animador.update(System.currentTimeMillis());
 		Collision(object);
@@ -64,29 +65,29 @@ public class Enemigos extends GameObject {
 		if(falling || jumping){
 			velY+=gravity;
 			if(facingRight)
-				animador.setFrames(spriteHash.get("jump_right.png"));
+				animador.setFrames(spriteHash.get("jumping.png"));
 			else
-				animador.setFrames(spriteHash.get("jump_left.png"));
+				animador.setFrames(spriteHash.get("jumping.png"));
 		}
 		if(movingRight){
 			animador.resume();
 			if(jumping || falling)
-			animador.setFrames(spriteHash.get("jump_right.png"));
+			animador.setFrames(spriteHash.get("jumping.png"));
 			else if(crouching)
-			animador.setFrames(spriteHash.get("crouch_right"));
+			animador.setFrames(spriteHash.get("iddle_right"));
 			else
-				animador.setFrames(spriteHash.get("running_right"));
+				animador.setFrames(spriteHash.get("walking_right"));
 			facingRight=true;
 			velX= 5;
 		}
 		if(movingLeft){
 			animador.resume();
 			if(jumping || falling)
-			animador.setFrames(spriteHash.get("jump_left.png"));
+			animador.setFrames(spriteHash.get("jumping.png"));
 			else if(crouching)
-			animador.setFrames(spriteHash.get("crouch_left"));
+			animador.setFrames(spriteHash.get("iddle_left"));
 			else
-				animador.setFrames(spriteHash.get("running_left"));
+				animador.setFrames(spriteHash.get("walking_left"));
 			facingRight = false;
 			velX= -5;
 		}
@@ -102,15 +103,15 @@ public class Enemigos extends GameObject {
 		}
 		if(crouching && !movingRight && !movingLeft){
 			if(facingRight)
-				animador.setFrames(spriteHash.get("crouch_right"));
+				animador.setFrames(spriteHash.get("iddle_right"));
 			else
-				animador.setFrames(spriteHash.get("crouch_left"));
+				animador.setFrames(spriteHash.get("iddle_left"));
 		}
 		if(!(movingRight||movingLeft||falling||jumping||crouching))
 			if(facingRight)
-				animador.setFrames(spriteHash.get("running_right"));
+				animador.setFrames(spriteHash.get("walking_right"));
 			else
-				animador.setFrames(spriteHash.get("running_left"));
+				animador.setFrames(spriteHash.get("walking_left"));
 			
 	}
 

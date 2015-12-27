@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.Random;
 
 import objects.Block;
+import objects.Enemigos;
 import objects.Player;
 import framework.GameObject;
 import framework.ObjectId;
@@ -34,9 +35,12 @@ public class Juego extends Canvas implements Runnable {
 		handler.addObject(new Block(i+5, getHeight()-100,ObjectId.Block));
 		handler.addObject(new Block(i+7, getHeight()-200,ObjectId.Block));
 		}
-		handler.addObject(new Player(100, 100, ObjectId.Player));
+	    handler.addObject(new Player(100, 100, ObjectId.Player));
 		addKeyListener(new Controles(handler));
-	
+		
+		handler.addObject(new Enemigos(200, 200, ObjectId.Enemigos));
+		
+
 	}
 	
 	public Juego(){
