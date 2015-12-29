@@ -15,7 +15,7 @@ import framework.GameObject;
 import framework.ObjectId;
 
 public class Enemigos extends GameObject {
-	private boolean crouching = false;
+	private boolean attack = false;
 	private Animator animador;
 	private float gravity = 0.5f;
 	private BufferedImage sprite;
@@ -56,8 +56,14 @@ public class Enemigos extends GameObject {
 		for(int i =0; i<object.size(); i++){
 			GameObject TempObject = object.get(i);
 			if(TempObject instanceof Player){
-				//if(this.getBounds().intersects(((Player) TempObject).getBoundsLeft()) || this.getBounds().intersects(((Player) TempObject).getBoundsRight()))
-				//	attack = true;
+				if(this.getBoundsRight().intersects(((Player) TempObject).getBounds()) || this.getBoundsLeft().intersects(((Player) TempObject).getBounds())){
+					attack = true;
+					movingRight = false;
+					movingLeft = false;
+				}
+					
+				else
+					attack = false;
 			}
 		}
 	}
@@ -74,6 +80,10 @@ public class Enemigos extends GameObject {
 					movingLeft = false;
 					movingRight = true;
 			}
+					else{
+						movingRight = false;
+						movingLeft = false;
+				}
 		}
 		}
 		System.out.println(falling);
@@ -83,6 +93,13 @@ public class Enemigos extends GameObject {
 		// TODO Auto-generated method stub
 		x+=velX;
 		y+=velY;
+		if(attack){
+			animador.resume();
+			if(facingRight)
+			animador.setFrames(spriteHash.get("attack_right"));
+			else
+				animador.setFrames(spriteHash.get("attack_left"));
+		}
 		if(falling || jumping){
 			velY+=gravity;
 			if(facingRight)
@@ -109,7 +126,6 @@ public class Enemigos extends GameObject {
 			velX= -1;
 		}
 		if(!(movingRight || movingLeft)){
-			animador.pause();
 			velX =0;
 		}
 		if(jumping && !falling){
@@ -118,23 +134,9 @@ public class Enemigos extends GameObject {
 			jumping = false;
 			falling = true;
 		}
-		if(crouching && !movingRight && !movingLeft){
-			if(facingRight)
-				animador.setFrames(spriteHash.get("attack_right"));
-			else
-				animador.setFrames(spriteHash.get("attack_left"));
-		}
-		if(!(movingRight||movingLeft||falling||jumping||crouching))
-			if(facingRight)
-				animador.setFrames(spriteHash.get("idle_right"));
-			else
-				animador.setFrames(spriteHash.get("idle_left"));
 			
 	}
 
-	public void setCrouching(boolean crouching) {
-		this.crouching = crouching;
-	}
 
 	@Override
 	public void render(Graphics g) {
