@@ -53,8 +53,29 @@ public class Enemigos extends GameObject {
 					falling = true;
 			}
 		}
+		for(int i =0; i<object.size(); i++){
+			GameObject TempObject = object.get(i);
+			if(TempObject instanceof Player){
+				//if(this.getBounds().intersects(((Player) TempObject).getBoundsLeft()) || this.getBounds().intersects(((Player) TempObject).getBoundsRight()))
+				//	attack = true;
+			}
+		}
 	}
 	public void tick(ArrayList<GameObject> object)  {
+		for(int i =0; i<object.size(); i++){
+			GameObject TempObject = object.get(i);
+			if(TempObject instanceof Player){
+				
+				if(TempObject.getX() - this.getX() < 0){
+					movingRight = false;
+					movingLeft = true;
+				}
+				else if(TempObject.getX() - this.getX() > 0){
+					movingLeft = false;
+					movingRight = true;
+			}
+		}
+		}
 		System.out.println(falling);
 		animador.update(System.currentTimeMillis());
 		Collision(object);
@@ -73,23 +94,19 @@ public class Enemigos extends GameObject {
 			animador.resume();
 			if(jumping || falling)
 			animador.setFrames(spriteHash.get("jumping.png"));
-			else if(crouching)
-			animador.setFrames(spriteHash.get("attack_right"));
 			else
 				animador.setFrames(spriteHash.get("walking_right"));
 			facingRight=true;
-			velX= 5;
+			velX= 1;
 		}
 		if(movingLeft){
 			animador.resume();
 			if(jumping || falling)
 			animador.setFrames(spriteHash.get("jumping.png"));
-			else if(crouching)
-			animador.setFrames(spriteHash.get("attack_left"));
 			else
 				animador.setFrames(spriteHash.get("walking_left"));
 			facingRight = false;
-			velX= -5;
+			velX= -1;
 		}
 		if(!(movingRight || movingLeft)){
 			animador.pause();
