@@ -18,9 +18,22 @@ public class Block extends GameObject {
 		super(x, y, id);
 		// TODO Auto-generated constructor stub
 	}
+	private void collision(ArrayList<GameObject> object){
 
+		for(int i =0; i<object.size(); i++){
+			GameObject TempObject = object.get(i);
+		if(TempObject instanceof Bullet){
+			if(this.getBounds().intersects(((Bullet) TempObject).getBounds())){
+			object.remove(i);
+		}
+				
+					
+			}
+		}
+	}
 	@Override
 	public void tick(ArrayList<GameObject> object) {
+		collision(object);
 		// TODO Auto-generated method stub
 
 	}
