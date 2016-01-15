@@ -1,8 +1,8 @@
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
-import java.sql.SQLException;
 import java.util.Random;
 
 import objects.Block;
@@ -21,6 +21,7 @@ public class Juego extends Canvas implements Runnable {
 	private boolean running = false;
 	private Thread thread;
 	GameObject object;
+	Camara cam;
 	Handler handler;
 	Random rand = new Random();
 	/**
@@ -28,8 +29,9 @@ public class Juego extends Canvas implements Runnable {
 	 * los objetos iniciales del juego, junto con un keylistener para los controles
 	 */
 	private void init(){
+		cam = new Camara(0,0);
 		handler = new Handler();
-		for(int i =0; i<getWidth() ; i += 32)
+		for(int i =0; i<32000 ; i += 32)
 		handler.addObject(new Block(i, getHeight()-32, ObjectId.Block));
 		for(int i=getWidth()/3;i< (int)(getWidth()*2)/3;i+=32){ 
 		handler.addObject(new Block(i+5, getHeight()-100,ObjectId.Block));
@@ -94,6 +96,11 @@ public class Juego extends Canvas implements Runnable {
 	}
 	private void tick(){
 		handler.tick();
+		for(int i =0; i < handler.objectlist.size(); i++){
+			GameObject tempObject = handler.objectlist.get(i);
+			if(tempObject instanceof Player)
+			cam.tick(tempObject);
+		}
 	}
 	/**
 	 * Método que renderiza el fondo del juego
@@ -106,13 +113,19 @@ public class Juego extends Canvas implements Runnable {
 			return;
 		}
 		Graphics g = bs.getDrawGraphics();
+
+		Graphics2D g2d = (Graphics2D) g;
 		//////////////////////////
-		
 		////DIBUJAR TODO NUESTRO JUEGO AQUÍ////
 
 		g.setColor(Color.black);
 		g.fillRect(0, 0, getWidth(), getHeight());
+
+		g2d.translate(cam.getX(), cam.getY()); //begin of cam
+		
 		handler.render(g);
+
+		g2d.translate(-cam.getX(), -cam.getY()); //end of cam
 		/////////////////////////
 		g.dispose();
 		bs.show();
