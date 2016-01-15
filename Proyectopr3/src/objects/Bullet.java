@@ -29,7 +29,7 @@ public class Bullet extends GameObject {
 			}
 			velX = 7;
 		}
-			
+
 		else{
 			try {
 				sprite = ImageIO.read(new File("resources\\bullet2.png"));
@@ -39,7 +39,7 @@ public class Bullet extends GameObject {
 			}
 			velX= -7;
 		}
-		
+
 		// TODO Auto-generated constructor stub
 	}
 
@@ -47,14 +47,33 @@ public class Bullet extends GameObject {
 	public void tick(ArrayList<GameObject> object) {
 		x+=velX;
 		y+=velY;
+		Collision(object);
 		for(GameObject gameobject: object){
 			if(gameobject instanceof Player){
-				
+
 			}
 		}
 		// TODO Auto-generated method stub
 
 	}
+
+	private void Collision(ArrayList<GameObject> object){
+//		for(int i =0; i<object.size(); i++){
+//			GameObject TempObject = object.get(i);
+//			if(TempObject instanceof Enemigos)
+//				
+//				if(this.getBounds().intersects(((Enemigos) TempObject).getBounds()) || this.getBounds().intersects(((Enemigos) TempObject).getBounds())){
+//					for(int e =0; e<object.size(); e++){
+//						GameObject TempObject1 = object.get(e);
+//						if(TempObject.equals(this))
+//					object.remove(e);
+//
+//				}
+//		}}
+	}
+
+
+
 
 	@Override
 	public void render(Graphics g) {

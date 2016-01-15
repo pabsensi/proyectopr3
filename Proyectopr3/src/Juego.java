@@ -109,6 +109,7 @@ public class Juego extends Canvas implements Runnable {
 		//////////////////////////
 		
 		////DIBUJAR TODO NUESTRO JUEGO AQUÍ////
+
 		g.setColor(Color.black);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		handler.render(g);

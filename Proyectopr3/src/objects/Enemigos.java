@@ -15,6 +15,7 @@ import framework.GameObject;
 import framework.ObjectId;
 
 public class Enemigos extends GameObject {
+	private int vidaEnemigo1=3;
 	private boolean attack = false;
 	private Animator animador;
 	private float gravity = 0.5f;
@@ -23,7 +24,7 @@ public class Enemigos extends GameObject {
 	private ArrayList<BufferedImage> currentAnim2 = new ArrayList<>();
 	private final String default_anim = "idle_right";
 	private HashMap<String, ArrayList<BufferedImage>> spriteHash = new HashMap<String, ArrayList<BufferedImage>>();
-	
+
 	public Enemigos(float x, float y, ObjectId id){
 		super(x, y, id);
 		facingRight = true;
@@ -51,7 +52,9 @@ public class Enemigos extends GameObject {
 				}
 				else
 					falling = true;
+				
 			}
+
 		}
 		for(int i =0; i<object.size(); i++){
 			GameObject TempObject = object.get(i);
@@ -61,9 +64,20 @@ public class Enemigos extends GameObject {
 					movingRight = false;
 					movingLeft = false;
 				}
-					
+
 				else
 					attack = false;
+			}
+		}
+		for(int i =0; i<object.size(); i++){
+			GameObject TempObject = object.get(i);
+		if(TempObject instanceof Bullet){
+			if(this.getBoundsRight().intersects(((Bullet) TempObject).getBounds()) || this.getBoundsLeft().intersects(((Bullet) TempObject).getBounds())){
+			object.remove(i);
+				vidaEnemigo1=vidaEnemigo1-1;
+		}
+				
+					
 			}
 		}
 	}
@@ -71,7 +85,7 @@ public class Enemigos extends GameObject {
 		for(int i =0; i<object.size(); i++){
 			GameObject TempObject = object.get(i);
 			if(TempObject instanceof Player){
-				
+
 				if(TempObject.getX() - this.getX() < 0){
 					movingRight = false;
 					movingLeft = true;
@@ -79,14 +93,21 @@ public class Enemigos extends GameObject {
 				else if(TempObject.getX() - this.getX() > 0){
 					movingLeft = false;
 					movingRight = true;
-			}
-					else{
-						movingRight = false;
-						movingLeft = false;
 				}
+				else{
+					movingRight = false;
+					movingLeft = false;
+				}
+			}
+			
+		}if(vidaEnemigo1==0)
+		for(int i =0; i<object.size(); i++){
+			GameObject TempObject = object.get(i);
+			if(TempObject.equals(this)){
+				object.remove(i);
+			}
 		}
-		}
-		System.out.println(falling);
+		
 		animador.update(System.currentTimeMillis());
 		Collision(object);
 		sprite = animador.sprite;
@@ -96,7 +117,7 @@ public class Enemigos extends GameObject {
 		if(attack){
 			animador.resume();
 			if(facingRight)
-			animador.setFrames(spriteHash.get("attack_right"));
+				animador.setFrames(spriteHash.get("attack_right"));
 			else
 				animador.setFrames(spriteHash.get("attack_left"));
 		}
@@ -110,7 +131,7 @@ public class Enemigos extends GameObject {
 		if(movingRight){
 			animador.resume();
 			if(jumping || falling)
-			animador.setFrames(spriteHash.get("jumping.png"));
+				animador.setFrames(spriteHash.get("jumping.png"));
 			else
 				animador.setFrames(spriteHash.get("walking_right"));
 			facingRight=true;
@@ -119,7 +140,7 @@ public class Enemigos extends GameObject {
 		if(movingLeft){
 			animador.resume();
 			if(jumping || falling)
-			animador.setFrames(spriteHash.get("jumping.png"));
+				animador.setFrames(spriteHash.get("jumping.png"));
 			else
 				animador.setFrames(spriteHash.get("walking_left"));
 			facingRight = false;
@@ -134,7 +155,7 @@ public class Enemigos extends GameObject {
 			jumping = false;
 			falling = true;
 		}
-			
+
 	}
 
 
@@ -157,7 +178,7 @@ public class Enemigos extends GameObject {
 	}
 	public Rectangle getBoundsTop(){
 		return new Rectangle((int)x+(sprite.getWidth()/2)-(sprite.getWidth()/4),(int) y, sprite.getWidth()/2, spriteHeight/2);
-		
+
 	}
 	public Rectangle getBoundsRight(){
 		return new Rectangle((int)x+sprite.getWidth()-5,(int) y+5, 5, sprite.getHeight()-10);

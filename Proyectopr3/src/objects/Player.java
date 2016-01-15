@@ -61,7 +61,14 @@ public class Player extends GameObject {
 		for(int i =0; i<object.size(); i++){
 			GameObject TempObject = object.get(i);
 			if(TempObject instanceof Block){
-				if(this.getBounds().intersects(TempObject.getBounds())){
+				
+				if(getBoundsTop().intersects(TempObject.getBounds())){
+					y = TempObject.getY() + 34;
+					setvelY(0);
+				}
+				
+				if(getBounds().intersects(TempObject.getBounds())){
+					System.out.println("asdasda");
 					falling =false;
 					velY=0;
 					if(facingRight)
@@ -70,9 +77,23 @@ public class Player extends GameObject {
 						animador.setFrames(spriteHash.get("running_left"));
 					y = TempObject.getY()-animador.sprite.getHeight();
 					break;
-				}
-				else
+				}else
 					falling = true;
+				
+			}
+			}
+
+		for(int i =0; i<object.size(); i++){
+			GameObject TempObject = object.get(i);
+			if(TempObject instanceof Block){
+				//RIGHT
+				if(getBoundsRight().intersects(TempObject.getBounds())){
+					x = TempObject.getX() - sprite.getWidth();
+				}
+				//LEFT
+				if(getBoundsLeft().intersects(TempObject.getBounds())){
+					x = TempObject.getX() + sprite.getWidth();
+				}
 			}
 		}
 	}
@@ -86,7 +107,6 @@ public class Player extends GameObject {
 	 *   según la instrucción que le estemos mandando (saltar, andar agachado, correr...)
 	 */
 	public void tick(ArrayList<GameObject> object) {
-		System.out.println(falling);
 		animador.update(System.currentTimeMillis());
 		Collision(object);
 		sprite = animador.sprite;
@@ -172,9 +192,9 @@ public class Player extends GameObject {
 		
 	}
 	public Rectangle getBoundsRight(){
-		return new Rectangle((int)x+sprite.getWidth()-5,(int) y+5, 5, sprite.getHeight()-10);
+		return new Rectangle((int)x+sprite.getWidth()-5,(int) y+5, 5, sprite.getHeight()-20);
 	}
 	public Rectangle getBoundsLeft(){
-		return new Rectangle((int)x,(int) y+5, 5, sprite.getHeight()-10);
+		return new Rectangle((int)x,(int) y+5, 5, sprite.getHeight()-20);
 	}
 }
