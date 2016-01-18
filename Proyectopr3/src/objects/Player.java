@@ -192,9 +192,9 @@ public class Player extends GameObject {
 		
 	}
 	public Rectangle getBoundsRight(){
-		return new Rectangle((int)x+sprite.getWidth()-5,(int) y+5, 5, sprite.getHeight()-20);
+		return new Rectangle((int)x+sprite.getWidth()-5,(int) y+5, 5, sprite.getHeight()-25);
 	}
 	public Rectangle getBoundsLeft(){
-		return new Rectangle((int)x,(int) y+5, 5, sprite.getHeight()-20);
+		return new Rectangle((int)x,(int) y+5, 5, sprite.getHeight()-25);
 	}
 }
