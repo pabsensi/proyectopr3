@@ -46,8 +46,9 @@ public class Juego extends Canvas implements Runnable {
 		Nivel1.createLevel1(handler);
 	    handler.addObject(new Player(100, 100, ObjectId.Player));
 		addKeyListener(new Controles(handler));
-
-		handler.addObject(new Bat(800, 400, ObjectId.Bat));
+		for(int i=0; i<10000; i=i+50){
+		handler.addObject(new Bat(800+i, 400, ObjectId.Bat));
+		}
 		handler.addObject(new Enemigos(200, 200, ObjectId.Enemigos));
 
 	}
