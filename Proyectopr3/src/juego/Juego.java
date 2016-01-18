@@ -7,7 +7,7 @@ import java.awt.image.BufferStrategy;
 import java.util.Random;
 
 import niveles.Nivel1;
-import objects.Block;
+import objects.Bat;
 import objects.Enemigos;
 import objects.Player;
 import framework.Camara;
@@ -46,7 +46,8 @@ public class Juego extends Canvas implements Runnable {
 		Nivel1.createLevel1(handler);
 	    handler.addObject(new Player(100, 100, ObjectId.Player));
 		addKeyListener(new Controles(handler));
-		
+
+		handler.addObject(new Bat(800, 400, ObjectId.Bat));
 		handler.addObject(new Enemigos(200, 200, ObjectId.Enemigos));
 
 	}

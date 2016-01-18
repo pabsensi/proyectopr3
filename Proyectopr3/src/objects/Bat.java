@@ -15,22 +15,23 @@ import sprite.player.SpriteListCreator;
 import framework.GameObject;
 import framework.ObjectId;
 
-public class Enemigos extends GameObject {
-	private int vidaEnemigo1=3;
-	private boolean attack = false;
+public class Bat extends GameObject {
+	private boolean up = false, down = false;
+	private int vida =1;
+	private float firstY;
 	private Animator animador;
-	private float gravity = 0.5f;
 	private BufferedImage sprite;
 	private int spriteWidth, spriteHeight;
 	private ArrayList<BufferedImage> currentAnim = new ArrayList<>();
-	private final String default_anim = "idle_right";
+	private final String default_anim = "flying";
 	private HashMap<String, ArrayList<BufferedImage>> spriteHash = new HashMap<String, ArrayList<BufferedImage>>();
 
-	public Enemigos(float x, float y, ObjectId id){
+	public Bat(float x, float y, ObjectId id){
 		super(x, y, id);
+		firstY = y;
 		facingRight = true;
 		//meter el fichero con los sprites del enemigo
-		spriteHash = SpriteListCreator.SpriteHashCreator(new File("resources/Crusher"));
+		spriteHash = SpriteListCreator.SpriteHashCreator(new File("resources/Bat"));
 		currentAnim = spriteHash.get(default_anim);
 		sprite = currentAnim.get(0);
 		spriteHeight = sprite.getHeight();
@@ -40,42 +41,10 @@ public class Enemigos extends GameObject {
 	private void Collision(ArrayList<GameObject> object){
 		for(int i =0; i<object.size(); i++){
 			GameObject TempObject = object.get(i);
-			if(TempObject instanceof Block){
-				if(this.getBounds().intersects(TempObject.getBounds())){
-					falling =false;
-					velY=0;
-					if(facingRight)
-						animador.setFrames(spriteHash.get("walking_right"));
-					else
-						animador.setFrames(spriteHash.get("walking_left"));
-					y = TempObject.getY()-animador.sprite.getHeight();
-					break;
-				}
-				else
-					falling = true;
-				
-			}
-
-		}
-		for(int i =0; i<object.size(); i++){
-			GameObject TempObject = object.get(i);
-			if(TempObject instanceof Player){
-				if(this.getBoundsRight().intersects(((Player) TempObject).getBounds()) || this.getBoundsLeft().intersects(((Player) TempObject).getBounds())){
-					attack = true;
-					movingRight = false;
-					movingLeft = false;
-				}
-
-				else
-					attack = false;
-			}
-		}
-		for(int i =0; i<object.size(); i++){
-			GameObject TempObject = object.get(i);
 		if(TempObject instanceof Bullet){
 			if(this.getBoundsRight().intersects(((Bullet) TempObject).getBounds()) || this.getBoundsLeft().intersects(((Bullet) TempObject).getBounds())){
 			object.remove(i);
-				vidaEnemigo1=vidaEnemigo1-1;
+				vida=vida-1;
 		}
 				
 					
@@ -88,20 +57,11 @@ public class Enemigos extends GameObject {
 			if(TempObject instanceof Player){
 
 				if( this.getX() - TempObject.getX() < 600 && this.getX() - TempObject.getX() > 0){
-					movingRight = false;
 					movingLeft = true;
-				}
-				else if(TempObject.getX() - this.getX() > 0){
-					movingLeft = false;
-					movingRight = true;
-				}
-				else{
-					movingRight = false;
-					movingLeft = false;
 				}
 			}
 			
-		}if(vidaEnemigo1==0)
+		}if(vida==0)
 		for(int i =0; i<object.size(); i++){
 			GameObject TempObject = object.get(i);
 			if(TempObject.equals(this)){
@@ -115,49 +75,21 @@ public class Enemigos extends GameObject {
 		// TODO Auto-generated method stub
 		x+=velX;
 		y+=velY;
-		if(attack){
-			animador.resume();
-			if(facingRight)
-				animador.setFrames(spriteHash.get("attack_right"));
-			else
-				animador.setFrames(spriteHash.get("attack_left"));
-		}
-		if(falling || jumping){
-			velY+=gravity;
-			if(facingRight)
-				animador.setFrames(spriteHash.get("jumping.png"));
-			else
-				animador.setFrames(spriteHash.get("jumping.png"));
-		}
-		if(movingRight){
-			animador.resume();
-			if(jumping || falling)
-				animador.setFrames(spriteHash.get("jumping.png"));
-			else
-				animador.setFrames(spriteHash.get("walking_right"));
-			facingRight=true;
-			velX= 1;
-		}
 		if(movingLeft){
-			animador.resume();
-			if(jumping || falling)
-				animador.setFrames(spriteHash.get("jumping.png"));
-			else
-				animador.setFrames(spriteHash.get("walking_left"));
-			facingRight = false;
-			velX= -1;
+			velX=-7;
+			if(up)
+				y+=5;
+			else if(down)
+				y-=5;
 		}
-		if(!(movingRight || movingLeft || attack)){
-			velX =0;
-			animador.setFrames(spriteHash.get("idle_left"));
+		if(y-firstY==0){
+			up = true;
+			down = false;
 		}
-		if(jumping && !falling){
-			y -= 3;
-			velY = -7;
-			jumping = false;
-			falling = true;
+		else if (y-firstY == 70){
+			down = true;
+			up = false;
 		}
-
 	}
 
 
@@ -165,12 +97,7 @@ public class Enemigos extends GameObject {
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
 		g.drawImage(sprite, (int)x, (int)y, null);
-		Graphics2D g2d= (Graphics2D) g;
-		g.setColor(Color.yellow);
-		g2d.draw(getBounds());
-		g2d.draw(getBoundsTop());
-		g2d.draw(getBoundsLeft());
-		g2d.draw(getBoundsRight());
+	
 	}
 
 	@Override

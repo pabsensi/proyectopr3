@@ -1,14 +1,11 @@
 package objects;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import javax.imageio.ImageIO;
+import java.util.LinkedList;
 
 import sprite.player.SpriteListCreator;
 import framework.GameObject;

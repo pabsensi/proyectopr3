@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.LinkedList;
 /**
  * Clase GameObject para todos los objetos que se van a introducir en pantalla.
  * Cada objeto de juego que se muestre en pantalla deberá tener obligatoriamente
@@ -56,7 +57,7 @@ public abstract class GameObject {
 		this.id = id;
 	}
 	//detección de colisiones
-	public abstract void tick(ArrayList<GameObject> object);
+	public abstract void tick(ArrayList<GameObject> objectlist);
 	public abstract void render(Graphics g);
 	public abstract Rectangle getBounds();
 	public float getX(){

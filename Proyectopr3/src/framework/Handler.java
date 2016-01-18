@@ -1,6 +1,7 @@
 package framework;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Handler del juego, que se encarga de renderizar y acualizar cada objeto que introduzcamos
