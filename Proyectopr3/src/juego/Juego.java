@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.util.Random;
 
+import niveles.Nivel1;
 import objects.Block;
 import objects.Enemigos;
 import objects.Player;
@@ -36,17 +37,17 @@ public class Juego extends Canvas implements Runnable {
 	private void init(){
 		cam = new Camara(0,0);
 		handler = new Handler();
-		for(int i =0; i<32000 ; i += 32)
-		handler.addObject(new Block(i, getHeight()-32, ObjectId.Block));
-		for(int i=getWidth()/3;i< (int)(getWidth()*2)/3;i+=32){ 
-		handler.addObject(new Block(i+5, getHeight()-100,ObjectId.Block));
-		handler.addObject(new Block(i+7, getHeight()-200,ObjectId.Block));
-		}
+		//for(int i =0; i<32000 ; i += 32)
+		//handler.addObject(new Block(i, getHeight()-32, ObjectId.Block));
+		//for(int i=getWidth()/3;i< (int)(getWidth()*2)/3;i+=32){ 
+		//handler.addObject(new Block(i+5, getHeight()-100,ObjectId.Block));
+		//handler.addObject(new Block(i+7, getHeight()-200,ObjectId.Block));
+		//}
+		Nivel1.createLevel1(handler);
 	    handler.addObject(new Player(100, 100, ObjectId.Player));
 		addKeyListener(new Controles(handler));
 		
 		handler.addObject(new Enemigos(200, 200, ObjectId.Enemigos));
-		//addKeyListener(new Controles(handler));
 
 	}
 	
@@ -123,7 +124,7 @@ public class Juego extends Canvas implements Runnable {
 		//////////////////////////
 		////DIBUJAR TODO NUESTRO JUEGO AQUÍ////
 
-		g.setColor(Color.black);
+		g.setColor(Color.blue);
 		g.fillRect(0, 0, getWidth(), getHeight());
 
 		g2d.translate(cam.getX(), cam.getY()); //begin of cam

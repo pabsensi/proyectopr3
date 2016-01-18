@@ -2,8 +2,15 @@ package objects;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import javax.imageio.ImageIO;
+
+import sprite.player.SpriteListCreator;
 import framework.GameObject;
 import framework.ObjectId;
 
@@ -13,9 +20,14 @@ import framework.ObjectId;
  *
  */
 public class Block extends GameObject {
-
-	public Block(float x, float y, ObjectId id) {
+	private static HashMap<String, ArrayList<BufferedImage>> textures = new HashMap<String, ArrayList<BufferedImage>>();
+	static{
+			textures = SpriteListCreator.SpriteHashCreator(new File("resources\\terrain"));
+		
+	}
+	public Block(float x, float y, ObjectId id, String tex) {
 		super(x, y, id);
+		sprite = textures.get(tex).get(0);
 		// TODO Auto-generated constructor stub
 	}
 	private void collision(ArrayList<GameObject> object){
@@ -40,8 +52,10 @@ public class Block extends GameObject {
 
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.white);
-		g.drawRect((int)x, (int)y, 32, 32);
+		g.drawImage(sprite, (int) x, (int) y, null);
+		//g.setColor(Color.green);
+		//g.fillRect((int)x, (int)y, 32, 32);
+		//g.drawRect((int)x, (int)y, 32, 32);
 
 	}
 

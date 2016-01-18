@@ -19,7 +19,7 @@ public abstract class GameObject {
 	}
 	protected volatile boolean shoot;
 	protected ObjectId id;
-	volatile BufferedImage sprite;
+	protected volatile BufferedImage sprite;
 	protected boolean movingRight= false, movingLeft = false;
 	public boolean isMovingRight() {
 		return movingRight;
