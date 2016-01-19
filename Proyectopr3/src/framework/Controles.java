@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import menu.BaseDeDatos;
 import objects.Bullet;
 import objects.Player;
+import objects.Grenade;
 /**
  * Clase para los controles del juego, hija de KeyAdapter ya que
  *  hereda de ella los métodos de keypressed y keyreleased
@@ -16,7 +17,7 @@ import objects.Player;
  *
  */
 public class Controles extends KeyAdapter {
-	private int Left =KeyEvent.VK_LEFT, Right = KeyEvent.VK_RIGHT, Crouch= KeyEvent.VK_DOWN, Jump = KeyEvent.VK_SPACE, Shoot = KeyEvent.VK_Z;
+	private int Left =KeyEvent.VK_LEFT, Right = KeyEvent.VK_RIGHT, Crouch= KeyEvent.VK_DOWN, Jump = KeyEvent.VK_SPACE, Shoot = KeyEvent.VK_Z, Grenade = KeyEvent.VK_X;
 	private long time, previousTime = 0;
 	Handler handler;
 	public Controles(Handler handler){
@@ -33,6 +34,8 @@ public class Controles extends KeyAdapter {
 			Jump = rs.getInt(1);
 		rs= BaseDeDatos.getStatement().executeQuery("select tecla from basecontroles where boton='disparar'");
 			Shoot = rs.getInt(1);
+		rs= BaseDeDatos.getStatement().executeQuery("select tecla from basecontroles where boton='hacer'");
+			Grenade = rs.getInt(1);
 		} catch (SQLException | java.lang.NullPointerException e) {
 			Logger.getLogger("ERROR EN LA BASE DE DATOS");
 			e.printStackTrace();
@@ -69,9 +72,19 @@ public class Controles extends KeyAdapter {
 					time = System.currentTimeMillis();
 					if(time - previousTime >= 200){
 					if(tempObject.isFacingRight())
-						handler.addObject(new Bullet(tempObject.getX()+(tempObject.getBounds().width), tempObject.getY()+3, ObjectId.Bullet, handler.objectlist.get(i).isFacingRight(), tempObject.velX));
+						handler.addObject(new Bullet(tempObject.getX()+(tempObject.getBounds().width), tempObject.getY()+3, ObjectId.Bullet, handler.objectlist.get(i).isFacingRight(), tempObject.velX/2));
 					else
-						handler.addObject(new Bullet(tempObject.getX(), tempObject.getY()+3, ObjectId.Bullet, handler.objectlist.get(i).isFacingRight(), tempObject.velX));
+						handler.addObject(new Bullet(tempObject.getX(), tempObject.getY()+3, ObjectId.Bullet, handler.objectlist.get(i).isFacingRight(), tempObject.velX/2));
+					previousTime = time;
+					}
+				}
+				if(e.getKeyCode() == Grenade){
+					time = System.currentTimeMillis();
+					if(time - previousTime >= 400){
+					if(tempObject.isFacingRight())
+						handler.addObject(new Grenade(tempObject.getX()+(tempObject.getBounds().width), tempObject.getY()+3, ObjectId.Bullet, handler.objectlist.get(i).isFacingRight(), tempObject.velX/2));
+					else
+						handler.addObject(new Grenade(tempObject.getX(), tempObject.getY()+3, ObjectId.Bullet, handler.objectlist.get(i).isFacingRight(), tempObject.velX/2));
 					previousTime = time;
 					}
 				}

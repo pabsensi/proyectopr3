@@ -21,6 +21,13 @@ import framework.ObjectId;
  *
  */
 public class Player extends GameObject {
+	int numGranadas = 4;
+	public int getNumGranadas() {
+		return numGranadas;
+	}
+	public void setNumGranadas(int numGranadas) {
+		this.numGranadas = numGranadas;
+	}
 	private boolean crouching = false;
 	private Animator animador;
 	private float gravity = 0.5f;

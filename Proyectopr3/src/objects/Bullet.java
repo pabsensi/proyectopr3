@@ -38,7 +38,7 @@ public class Bullet extends GameObject {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			velX= -7;
+			velX= vel -7 ;
 		}
 
 		// TODO Auto-generated constructor stub

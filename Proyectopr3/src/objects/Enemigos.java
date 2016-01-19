@@ -64,6 +64,7 @@ public class Enemigos extends GameObject {
 					attack = true;
 					movingRight = false;
 					movingLeft = false;
+					TempObject.setvelX(getvelX()*2);
 				}
 
 				else

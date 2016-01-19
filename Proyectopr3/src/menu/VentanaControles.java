@@ -1,12 +1,10 @@
 package menu;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,8 +14,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.JTable;
 
 
 
@@ -40,14 +36,20 @@ public class VentanaControles extends JFrame {
 	public static JButton agachar;
 	public static JButton saltar;
 	public static JButton disparar;
-	public static JButton hacer;
-
-	static Integer codsTeclasControladas[] = { KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT,KeyEvent.VK_SPACE }; 
-	static List<Integer> listaTeclas = Arrays.asList( codsTeclasControladas );
+	public static JButton hacer; 
+	static ArrayList<Integer> arrayteclas = new ArrayList<>();
+	static List<Integer> listaTeclas = new ArrayList<Integer>();
 	boolean teclasPulsadas[];
+	static{
+	}
 
 
 	public VentanaControles(String t){
+
+		for(int i = 65; i<=90; i++) listaTeclas.add(i);
+		for(int i = 37; i<=40; i++) listaTeclas.add(i);
+		listaTeclas.add(32);
+		
 		this.setTitle(t) ;
 		this.setSize(800,600);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -58,8 +60,7 @@ public class VentanaControles extends JFrame {
 		//this.add(c,BorderLayout.CENTER);
 		//c.setLayout(new FlowLayout());
 
-		teclasPulsadas = new boolean[ codsTeclasControladas.length ];
-		//for(int i=65;i<90;i++) listaTeclas.add(i);
+		teclasPulsadas = new boolean[ listaTeclas.size() ];
 			
 
 		//Hay que añador dos columnas una de descripción y otra del dibujo de los controles
