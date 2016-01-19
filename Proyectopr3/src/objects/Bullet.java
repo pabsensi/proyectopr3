@@ -19,7 +19,7 @@ import framework.ObjectId;
  */
 public class Bullet extends GameObject {
 	volatile BufferedImage sprite;
-	public Bullet(float x, float y, ObjectId id, boolean right) {
+	public Bullet(float x, float y, ObjectId id, boolean right, float vel) {
 		super(x, y, id);
 		if(right){
 			try {
@@ -28,7 +28,7 @@ public class Bullet extends GameObject {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			velX = 7;
+			velX = vel+ 7;
 		}
 
 		else{
