@@ -69,9 +69,9 @@ public class Controles extends KeyAdapter {
 					time = System.currentTimeMillis();
 					if(time - previousTime >= 200){
 					if(tempObject.isFacingRight())
-						handler.addObject(new Bullet(tempObject.getX()+(tempObject.getBounds().width), tempObject.getY()+3, ObjectId.Bullet, handler.objectlist.get(i).isFacingRight()));
+						handler.addObject(new Bullet(tempObject.getX()+(tempObject.getBounds().width), tempObject.getY()+3, ObjectId.Bullet, handler.objectlist.get(i).isFacingRight(), tempObject.velX));
 					else
-						handler.addObject(new Bullet(tempObject.getX(), tempObject.getY()+3, ObjectId.Bullet, handler.objectlist.get(i).isFacingRight()));
+						handler.addObject(new Bullet(tempObject.getX(), tempObject.getY()+3, ObjectId.Bullet, handler.objectlist.get(i).isFacingRight(), tempObject.velX));
 					previousTime = time;
 					}
 				}
