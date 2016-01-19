@@ -17,10 +17,11 @@ import framework.ObjectId;
  * @author Pablosensi
  *
  */
-public class Bullet extends GameObject {
+public class Bullet extends Projectile {
 	volatile BufferedImage sprite;
 	public Bullet(float x, float y, ObjectId id, boolean right, float vel) {
 		super(x, y, id);
+		danyo = 1;
 		if(right){
 			try {
 				sprite = ImageIO.read(new File("resources\\bullet.png"));
@@ -49,28 +50,17 @@ public class Bullet extends GameObject {
 		x+=velX;
 		y+=velY;
 		Collision(object);
-		for(GameObject gameobject: object){
-			if(gameobject instanceof Player){
-
-			}
-		}
 		// TODO Auto-generated method stub
 
 	}
 
 	private void Collision(ArrayList<GameObject> object){
-//		for(int i =0; i<object.size(); i++){
-//			GameObject TempObject = object.get(i);
-//			if(TempObject instanceof Enemigos)
-//				
-//				if(this.getBounds().intersects(((Enemigos) TempObject).getBounds()) || this.getBounds().intersects(((Enemigos) TempObject).getBounds())){
-//					for(int e =0; e<object.size(); e++){
-//						GameObject TempObject1 = object.get(e);
-//						if(TempObject.equals(this))
-//					object.remove(e);
-//
-//				}
-//		}}
+	for(int i =0; i<object.size(); i++){
+		GameObject TempObject = object.get(i);
+			if(TempObject instanceof Enemy)
+				if(this.getBounds().intersects(((Enemy) TempObject).getBoundsRight()) || this.getBounds().intersects(((Enemy) TempObject).getBoundsLeft())){
+					((Enemy)TempObject).setVida(danyo);
+	}}
 	}
 
 

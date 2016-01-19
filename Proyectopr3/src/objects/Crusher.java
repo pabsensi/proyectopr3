@@ -15,19 +15,18 @@ import sprite.player.SpriteListCreator;
 import framework.GameObject;
 import framework.ObjectId;
 
-public class Enemigos extends GameObject {
-	private int vidaEnemigo1=3;
+public class Crusher extends Enemy {
 	private boolean attack = false;
 	private Animator animador;
 	private float gravity = 0.5f;
-	private BufferedImage sprite;
 	private int spriteWidth, spriteHeight;
 	private ArrayList<BufferedImage> currentAnim = new ArrayList<>();
 	private final String default_anim = "idle_right";
 	private HashMap<String, ArrayList<BufferedImage>> spriteHash = new HashMap<String, ArrayList<BufferedImage>>();
 
-	public Enemigos(float x, float y, ObjectId id){
+	public Crusher(float x, float y, ObjectId id){
 		super(x, y, id);
+		vida = 3;
 		facingRight = true;
 		//meter el fichero con los sprites del enemigo
 		spriteHash = SpriteListCreator.SpriteHashCreator(new File("resources/Crusher"));
@@ -73,10 +72,9 @@ public class Enemigos extends GameObject {
 		}
 		for(int i =0; i<object.size(); i++){
 			GameObject TempObject = object.get(i);
-		if(TempObject instanceof Bullet){
-			if(this.getBoundsRight().intersects(((Bullet) TempObject).getBounds()) || this.getBoundsLeft().intersects(((Bullet) TempObject).getBounds())){
+		if(TempObject instanceof Projectile){
+			if(this.getBoundsRight().intersects( TempObject.getBounds()) || this.getBoundsLeft().intersects(TempObject.getBounds())){
 			object.remove(i);
-				vidaEnemigo1=vidaEnemigo1-1;
 		}
 				
 					
@@ -102,7 +100,7 @@ public class Enemigos extends GameObject {
 				}
 			}
 			
-		}if(vidaEnemigo1==0)
+		}if(vida<=0)
 		for(int i =0; i<object.size(); i++){
 			GameObject TempObject = object.get(i);
 			if(TempObject.equals(this)){

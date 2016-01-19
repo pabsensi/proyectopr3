@@ -15,9 +15,8 @@ import sprite.player.SpriteListCreator;
 import framework.GameObject;
 import framework.ObjectId;
 
-public class Bat extends GameObject {
+public class Bat extends Enemy {
 	private boolean up = false, down = false;
-	private int vida =1;
 	private float firstY;
 	private Animator animador;
 	private BufferedImage sprite;
@@ -28,6 +27,7 @@ public class Bat extends GameObject {
 
 	public Bat(float x, float y, ObjectId id){
 		super(x, y, id);
+		vida= 1;
 		firstY = y;
 		facingRight = true;
 		//meter el fichero con los sprites del enemigo
@@ -42,9 +42,8 @@ public class Bat extends GameObject {
 		for(int i =0; i<object.size(); i++){
 			GameObject TempObject = object.get(i);
 		if(TempObject instanceof Bullet){
-			if(this.getBoundsRight().intersects(((Bullet) TempObject).getBounds()) || this.getBoundsLeft().intersects(((Bullet) TempObject).getBounds())){
-			object.remove(i);
-				vida=vida-1;
+			if(this.getBoundsRight().intersects( TempObject.getBounds()) || this.getBoundsLeft().intersects(TempObject.getBounds())){
+				object.remove(i);
 		}
 				
 					
@@ -61,7 +60,7 @@ public class Bat extends GameObject {
 				}
 			}
 			
-		}if(vida==0)
+		}if(vida<=0)
 		for(int i =0; i<object.size(); i++){
 			GameObject TempObject = object.get(i);
 			if(TempObject.equals(this)){
@@ -103,7 +102,7 @@ public class Bat extends GameObject {
 	@Override
 	public Rectangle getBounds() {
 		// TODO Auto-generated method stub
-		return new Rectangle((int)x+(sprite.getWidth()/2)-(sprite.getWidth()/4),(int) y + (sprite.getHeight()/2), sprite.getWidth()/2, sprite.getHeight()/2 +2);
+		return new Rectangle((int)x,(int) y , 75, 75);
 	}
 	public Rectangle getBoundsTop(){
 		return new Rectangle((int)x+(sprite.getWidth()/2)-(sprite.getWidth()/4),(int) y, sprite.getWidth()/2, spriteHeight/2);

@@ -76,7 +76,6 @@ public class Player extends GameObject {
 				}
 				
 				if(getBounds().intersects(TempObject.getBounds())){
-					System.out.println("asdasda");
 					falling =false;
 					velY=0;
 					if(facingRight)
