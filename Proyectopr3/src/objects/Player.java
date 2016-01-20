@@ -48,6 +48,7 @@ public class Player extends GameObject {
 	}
 	private BufferedImage corazon;
 	private boolean crouching = false;
+	boolean horizontalcollision=false;
 	private Animator animador;
 	private float gravity = 0.5f;
 	private BufferedImage sprite;

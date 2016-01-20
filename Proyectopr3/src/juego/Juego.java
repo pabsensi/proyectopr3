@@ -35,7 +35,12 @@ public class Juego extends Canvas implements Runnable {
 	/**
 	 * Clase juego, que es lo que se ejecutará con cada partida según el mapa que le mandemos
 	 */
+
+	static URL url = Juego.class.getResource("fondo.wav");
+	static AudioClip clip = Applet.newAudioClip(url);
 	KeyAdapter keyadapter;
+	int xInicio;
+	int yInicio;
 	boolean ypressed = false;
 	private int nivel = 1;
 	private int fin;
@@ -59,6 +64,8 @@ public class Juego extends Canvas implements Runnable {
 	 * los objetos iniciales del juego, junto con un keylistener para los controles
 	 */
 	private void init(){
+		xInicio=0;
+		yInicio=500;
 		fin = 684684684;
 		removeKeyListener(keyadapter);		
 		keyadapter = null;
@@ -78,7 +85,6 @@ public class Juego extends Canvas implements Runnable {
 		}
 		cam = new Camara(0,0);
 		handler = new Handler();
-
 		switch(nivel){
 		case(1):
 			fin = Nivel1.createLevel(handler);
@@ -88,8 +94,8 @@ public class Juego extends Canvas implements Runnable {
 			break;
 		case(3):
 			fin = Nivel3.createLevel(handler);
-			player.setY(50);
-			player.setX(-50);
+			xInicio = -50;
+			yInicio = 50;
 			break;
 		case(4):
 			fin = Nivel4.createLevel(handler);
@@ -99,7 +105,7 @@ public class Juego extends Canvas implements Runnable {
 			nivel = 1;
 			break;
 		}
-		player = new Player(100, 500, ObjectId.Player);
+		player = new Player(xInicio, yInicio, ObjectId.Player);
 	    handler.addObject(player);
 	    handler.addObject(new Block(fin-236, HEIGHT-494, ObjectId.Block, "flag.png"));
 		addKeyListener(new Controles(handler));
@@ -122,8 +128,6 @@ public class Juego extends Canvas implements Runnable {
 	 * Método que se ejecutará en un hilo de juego
 	 */
 	public void run() {
-		URL url = Juego.class.getResource("fondo.wav");
-		AudioClip clip = Applet.newAudioClip(url);
 		clip.play();
 		init();
 		this.requestFocus();
@@ -192,7 +196,8 @@ public class Juego extends Canvas implements Runnable {
 								e2.printStackTrace();
 							}
 							running = false;
-							ventana.close();							
+							ventana.close();
+							clip.stop();
 						}
 					}
 
@@ -229,6 +234,7 @@ public class Juego extends Canvas implements Runnable {
 								}
 							ventana.close();
 							running= false;
+							clip.stop();
 						}
 						if(e.getKeyCode() == KeyEvent.VK_Y){
 							try {
@@ -281,7 +287,23 @@ public class Juego extends Canvas implements Runnable {
 		Graphics2D g2d = (Graphics2D) g;
 		//////////////////////////
 		////DIBUJAR TODO NUESTRO JUEGO AQUÍ////
-		g.setColor(Color.blue);
+		switch(nivel){
+		case(1):
+			g.setColor(Color.blue);
+			break;
+		case(2):
+			g.setColor(Color.lightGray);
+			break;
+		case(3):
+			g.setColor(Color.orange);
+			break;
+		case(4):
+			g.setColor(Color.magenta);
+			break;
+		default:
+			g.setColor(Color.blue);
+			break;
+		}
 		g.fillRect(0, 0, getWidth(), getHeight());
 
 		g2d.translate(cam.getX(), cam.getY()); //begin of cam
