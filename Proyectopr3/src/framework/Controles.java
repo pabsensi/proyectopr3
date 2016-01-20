@@ -1,7 +1,10 @@
 package framework;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Logger;
@@ -17,6 +20,7 @@ import objects.Grenade;
  *
  */
 public class Controles extends KeyAdapter {
+
 	private int Left =KeyEvent.VK_LEFT, Right = KeyEvent.VK_RIGHT, Crouch= KeyEvent.VK_DOWN, Jump = KeyEvent.VK_SPACE, Shoot = KeyEvent.VK_Z, Grenade = KeyEvent.VK_X;
 	private long time, previousTime = 0;
 	Handler handler;

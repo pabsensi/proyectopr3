@@ -1,15 +1,20 @@
 package objects;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 
+import juego.Juego;
+import framework.Controles;
 import framework.GameObject;
 import framework.ObjectId;
 /**
@@ -18,9 +23,14 @@ import framework.ObjectId;
  *
  */
 public class Bullet extends Projectile {
+
+	private static URL url = Controles.class.getResource("pistola.wav");
+	private static AudioClip clip = Applet.newAudioClip(url);
 	volatile BufferedImage sprite;
 	public Bullet(float x, float y, ObjectId id, boolean right, float vel) {
 		super(x, y, id);
+		clip.stop();
+		clip.play();
 		danyo = 1;
 		if(right){
 			try {

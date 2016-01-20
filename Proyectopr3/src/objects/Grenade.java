@@ -1,20 +1,27 @@
 package objects;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import juego.Juego;
 import pruebas.Animator;
 import sprite.player.SpriteListCreator;
 import framework.GameObject;
 import framework.ObjectId;
 
 public class Grenade extends Projectile {
+
+	private static URL url = Grenade.class.getResource("granada.wav");
+	private static AudioClip clip = Applet.newAudioClip(url);
 	private int danyo = 4;
 	public int getDaño() {
 		return danyo;
@@ -77,7 +84,7 @@ public class Grenade extends Projectile {
 		Collision(objectlist);
 		if(explode){
 			sprite = animador.sprite;
-			
+			clip.play();
 			velY= 0;
 			velX= 0;
 			animador.update(System.currentTimeMillis());

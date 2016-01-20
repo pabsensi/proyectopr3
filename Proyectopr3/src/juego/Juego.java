@@ -1,21 +1,28 @@
 package juego;
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import menu.BaseDeDatos;
 import niveles.Nivel1;
 import niveles.Nivel2;
+import niveles.Nivel3;
+import niveles.Nivel4;
+import objects.Block;
 import objects.Player;
 import framework.Camara;
 import framework.Controles;
@@ -52,6 +59,7 @@ public class Juego extends Canvas implements Runnable {
 	 * los objetos iniciales del juego, junto con un keylistener para los controles
 	 */
 	private void init(){
+		fin = 684684684;
 		removeKeyListener(keyadapter);		
 		keyadapter = null;
 		deadend = false;
@@ -70,6 +78,7 @@ public class Juego extends Canvas implements Runnable {
 		}
 		cam = new Camara(0,0);
 		handler = new Handler();
+
 		switch(nivel){
 		case(1):
 			fin = Nivel1.createLevel(handler);
@@ -77,12 +86,22 @@ public class Juego extends Canvas implements Runnable {
 		case(2):
 			fin = Nivel2.createLevel(handler);
 			break;
+		case(3):
+			fin = Nivel3.createLevel(handler);
+			player.setY(50);
+			player.setX(-50);
+			break;
+		case(4):
+			fin = Nivel4.createLevel(handler);
+			break;
 		default:
 			fin = Nivel1.createLevel(handler);
+			nivel = 1;
 			break;
 		}
 		player = new Player(100, 500, ObjectId.Player);
 	    handler.addObject(player);
+	    handler.addObject(new Block(fin-236, HEIGHT-494, ObjectId.Block, "flag.png"));
 		addKeyListener(new Controles(handler));
 	}
 	public Juego(){
@@ -103,6 +122,9 @@ public class Juego extends Canvas implements Runnable {
 	 * Método que se ejecutará en un hilo de juego
 	 */
 	public void run() {
+		URL url = Juego.class.getResource("fondo.wav");
+		AudioClip clip = Applet.newAudioClip(url);
+		clip.play();
 		init();
 		this.requestFocus();
 		System.out.println("thread is running");
@@ -149,11 +171,27 @@ public class Juego extends Canvas implements Runnable {
 					public void keyPressed(KeyEvent e) {
 						// TODO Auto-generated method stub
 						if(e.getKeyCode() == KeyEvent.VK_Y){
+							try {
+							String sql = "Update BaseJugadoresDef set jugador='" + player.getPuntuacion()+"' where numJugador = 0";
+							BaseDeDatos.getStatement().execute(sql);
+							} catch (SQLException  | java.lang.NullPointerException e2) {
+								// TODO Auto-generated catch block
+								e2.printStackTrace();
+							}
 							init();
 							deadend = false;
 						}
 
 						if(e.getKeyCode() == KeyEvent.VK_N){
+							try {
+								String sql = "Update BaseJugadoresDef set jugador='" + player.getPuntuacion()+"' where numJugador = 0";
+								BaseDeDatos.getStatement().execute(sql);
+								BaseDeDatos.close();
+							}  catch (SQLException  | java.lang.NullPointerException e2)  {
+								// TODO Auto-generated catch block
+								e2.printStackTrace();
+							}
+							running = false;
 							ventana.close();							
 						}
 					}
@@ -180,11 +218,26 @@ public class Juego extends Canvas implements Runnable {
 
 					@Override
 					public void keyPressed(KeyEvent e) {
-						if(e.getKeyCode() == KeyEvent.VK_N)
+						if(e.getKeyCode() == KeyEvent.VK_N){
+							try {
+								String sql = "Update BaseJugadoresDef set jugador='" + player.getPuntuacion()+"' where numJugador = 0";
+								BaseDeDatos.getStatement().execute(sql);
+								BaseDeDatos.close();
+								} catch (SQLException  | java.lang.NullPointerException e2) {
+									// TODO Auto-generated catch block
+									e2.printStackTrace();
+								}
 							ventana.close();
-							winend = false;
-
+							running= false;
+						}
 						if(e.getKeyCode() == KeyEvent.VK_Y){
+							try {
+								String sql = "Update BaseJugadoresDef set jugador='" + player.getPuntuacion()+"' where numJugador = 0";
+								BaseDeDatos.getStatement().execute(sql);
+								}  catch (SQLException  | java.lang.NullPointerException e2)  {
+									// TODO Auto-generated catch block
+									e2.printStackTrace();
+								}
 							ypressed = true;					
 							
 							

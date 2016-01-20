@@ -1,4 +1,6 @@
 package menu;
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -6,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.URL;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
@@ -14,12 +17,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import framework.SoundTest;
 import juego.Juego;
 
 
 
 
 public class MenuJuego extends JFrame{
+
+	static URL url = MenuJuego.class.getResource("menu.wav");
+	static AudioClip clip = Applet.newAudioClip(url);
 	public JPanel panelPrincipal;
 	public JPanel panelBotones;
 	public JPanel panelJugador;
@@ -123,6 +130,7 @@ public class MenuJuego extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
+				clip.stop();
 				setVisible(false);
 				Juego j = new Juego();
 				j.setVisible(true);
@@ -153,10 +161,14 @@ public class MenuJuego extends JFrame{
 	  
 	  
 	}
-	public static void main(String[] args){
+	public static void main(String[] args) throws InterruptedException{
 		MenuJuego menu =new MenuJuego("MENU");
 		menu.setVisible(true);
+		clip.play();
+		Thread.sleep(20000);
+
 		//Damos nombre y creamos la base d datos
+
 		BaseDeDatos.initBD("base");
 		BaseDeDatos.crearTablaBD();
 		BaseDeDatos.crearTablaBD2();

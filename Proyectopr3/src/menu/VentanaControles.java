@@ -24,7 +24,7 @@ public class VentanaControles extends JFrame {
 	static JLabel drch=new LabelEscalado("drch.PNG",90,90);
 	static JLabel izq=new LabelEscalado("izq.PNG",90,90);
 	static JLabel agacharse=new LabelEscalado("agacharse.PNG",90,90);
-	static JLabel arribaM=new LabelEscalado("arriba.PNG",100,90);
+//	static JLabel arribaM=new LabelEscalado("arriba.PNG",100,90);
 	static JLabel salto=new LabelEscalado("salto.PNG",90,90);
 	static JLabel granada=new LabelEscalado("granada.PNG",90,90);
 	static JLabel disparo=new LabelEscalado("disparo.PNG",100,90);
@@ -32,7 +32,7 @@ public class VentanaControles extends JFrame {
 
 	public static JButton derecha;
 	public static JButton izquierda;
-	public static JButton arriba;
+//	public static JButton arriba;
 	public static JButton agachar;
 	public static JButton saltar;
 	public static JButton disparar;
@@ -66,7 +66,7 @@ public class VentanaControles extends JFrame {
 		//Hay que añador dos columnas una de descripción y otra del dibujo de los controles
 		derecha= new JButton("DERECHA");
 		izquierda= new JButton("IZQUIERDA");
-		arriba=new JButton("ARRIBA");
+//		arriba=new JButton("ARRIBA");
 		agachar= new JButton("AGACHARSE");
 		saltar= new JButton("SALTAR");
 		disparar= new JButton("DISPARAR");
@@ -74,7 +74,7 @@ public class VentanaControles extends JFrame {
 
 		drch.setIcon(new ImageIcon("drch.PNG"));
 		izq.setIcon(new ImageIcon("izq.PNG"));
-		arribaM.setIcon(new ImageIcon("ariba.PNG"));
+//		arribaM.setIcon(new ImageIcon("ariba.PNG"));
 		agacharse.setIcon(new ImageIcon("agacharse.PNG"));
 		salto.setIcon(new ImageIcon("salto.PNG"));
 		disparo.setIcon(new ImageIcon("disparo.PNG"));
@@ -83,7 +83,7 @@ public class VentanaControles extends JFrame {
 
 		c.add(derecha);
 		c.add(izquierda);
-		c.add(arriba);
+//		c.add(arriba);
 		c.add(agachar);
 		c.add(saltar);
 		c.add(disparar);
@@ -92,7 +92,7 @@ public class VentanaControles extends JFrame {
 
 		c.add(drch);
 		c.add(izq);
-		c.add(arribaM);
+//		c.add(arribaM);
 		c.add(agacharse);
 		c.add(salto);
 		c.add(disparo);
@@ -102,7 +102,7 @@ public class VentanaControles extends JFrame {
 		c.setLayout(null);
 		drch.setBorder(BorderFactory.createLineBorder(Color.orange));
 		izq.setBorder(BorderFactory.createLineBorder(Color.orange));
-		arribaM.setBorder(BorderFactory.createLineBorder(Color.orange));
+//		arribaM.setBorder(BorderFactory.createLineBorder(Color.orange));
 		agacharse.setBorder(BorderFactory.createLineBorder(Color.orange));
 		salto.setBorder(BorderFactory.createLineBorder(Color.orange));
 		disparo.setBorder(BorderFactory.createLineBorder(Color.orange));
@@ -110,19 +110,19 @@ public class VentanaControles extends JFrame {
 
 		drch.setLocation(200,50);
 		izq.setLocation(550, 50);
-		arribaM.setLocation(540,200);
+//		arribaM.setLocation(540,200);
 		agacharse.setLocation(200, 220);
-		salto.setLocation(580, 320);
+		salto.setLocation(550, 220);
 		disparo.setLocation(200, 380);
-		granada.setLocation(550, 460);
+		granada.setLocation(550, 380);
 
 		derecha.setBounds(50,50,130,80);
 		izquierda.setBounds(400,50,130,80);
-		arriba.setBounds(400,200,130,80);
+//		arriba.setBounds(400,200,130,80);
 		agachar.setBounds(50,220,130,80);
-		saltar.setBounds(400,320,160,80);
+		saltar.setBounds(370,220,160,80);
 		disparar.setBounds(50,380,130,80);
-		hacer.setBounds(400,460,130,80);
+		hacer.setBounds(400,380,130,80);
 
 		getContentPane().add(c,BorderLayout.CENTER);
 
@@ -169,27 +169,27 @@ public class VentanaControles extends JFrame {
 					}
 				
 		});	
-				arriba.addKeyListener( new KeyAdapter() {
-					public void keyPressed(KeyEvent e) {
-						String sql;
-						if (listaTeclas.contains(e.getKeyCode())) {
-							// Si la tecla es de las que controlamos (cursores)
-							teclasPulsadas[ listaTeclas.indexOf( e.getKeyCode() ) ] = true;
-							try {
-								//PARA INTRODUCIR LOS DATOS DE UNA TABLA sin método 
-								//sql="insert into BaseControles values ("+e.getExtendedKeyCode()+",'arriba')";
-								sql="update basecontroles set tecla="+e.getExtendedKeyCode()+" where boton='arriba'";
-								BaseDeDatos.getStatement().execute(sql);
-								System.out.println(sql);
-							} catch (SQLException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-						}
-
-					}
-				
-		});	
+////				arriba.addKeyListener( new KeyAdapter() {
+//					public void keyPressed(KeyEvent e) {
+//						String sql;
+//						if (listaTeclas.contains(e.getKeyCode())) {
+//							// Si la tecla es de las que controlamos (cursores)
+//							teclasPulsadas[ listaTeclas.indexOf( e.getKeyCode() ) ] = true;
+//							try {
+//								//PARA INTRODUCIR LOS DATOS DE UNA TABLA sin método 
+//								//sql="insert into BaseControles values ("+e.getExtendedKeyCode()+",'arriba')";
+//								sql="update basecontroles set tecla="+e.getExtendedKeyCode()+" where boton='arriba'";
+//								BaseDeDatos.getStatement().execute(sql);
+//								System.out.println(sql);
+//							} catch (SQLException e1) {
+//								// TODO Auto-generated catch block
+//								e1.printStackTrace();
+//							}
+//						}
+//
+//					}
+//				
+//		});	
 				agachar.addKeyListener( new KeyAdapter() {
 					public void keyPressed(KeyEvent e) {
 						String sql;
