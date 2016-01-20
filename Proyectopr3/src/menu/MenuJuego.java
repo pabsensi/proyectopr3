@@ -118,7 +118,7 @@ public class MenuJuego extends JFrame{
 					sql="update BaseJugadoresDef set jugador='"+texto.getText()+"' where numJugador=0";
 					BaseDeDatos.getStatement().execute(sql);
 					System.out.println(sql);
-				} catch (SQLException e1) {
+				} catch (SQLException | java.lang.NullPointerException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
