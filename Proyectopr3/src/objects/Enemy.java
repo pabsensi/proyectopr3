@@ -1,0 +1,52 @@
+package objects;
+
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
+import framework.GameObject;
+import framework.ObjectId;
+
+public class Enemy extends GameObject {
+	protected int vida;
+	protected BufferedImage sprite;
+	public Enemy(float x, float y, ObjectId id) {
+		super(x, y, id);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void tick(ArrayList<GameObject> objectlist) {
+		// TODO Auto-generated method stub
+
+	}
+	public void setVida(int danyo){
+		this.vida -= danyo;
+	}
+	@Override
+	public void render(Graphics g) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Rectangle getBounds() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Rectangle getBoundsTop() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public Rectangle getBoundsLeft(){
+		return null;
+	}
+	
+
+	public Rectangle getBoundsRight(){
+		return null;
+	}
+}

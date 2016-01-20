@@ -36,7 +36,7 @@ public class Controles extends KeyAdapter {
 			Shoot = rs.getInt(1);
 		rs= BaseDeDatos.getStatement().executeQuery("select tecla from basecontroles where boton='hacer'");
 			Grenade = rs.getInt(1);
-		} catch (SQLException | java.lang.NullPointerException e) {
+		} catch (SQLException | java.lang.NullPointerException e ) {
 			Logger.getLogger("ERROR EN LA BASE DE DATOS");
 			e.printStackTrace();
 		}

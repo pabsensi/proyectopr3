@@ -7,7 +7,7 @@ import framework.ObjectId;
 
 public class Nivel1 {
 
-	public static int createLevel1(Handler handler) {
+	public static int createLevel(Handler handler) {
 		// TODO Auto-generated constructor stub
 
 		for(int i =0; i<3200 ; i += 32)
