@@ -78,7 +78,7 @@ public class Controles extends KeyAdapter {
 					previousTime = time;
 					}
 				}
-				if(e.getKeyCode() == Grenade){
+				if(e.getKeyCode() == Grenade && ((Player)tempObject).getNumGranadas()>0){
 					time = System.currentTimeMillis();
 					if(time - previousTime >= 400){
 					if(tempObject.isFacingRight())
@@ -86,6 +86,7 @@ public class Controles extends KeyAdapter {
 					else
 						handler.addObject(new Grenade(tempObject.getX(), tempObject.getY()+3, ObjectId.Bullet, handler.objectlist.get(i).isFacingRight(), tempObject.velX/2));
 					previousTime = time;
+					((Player)tempObject).setNumGranadas();
 					}
 				}
 				if(e.getKeyCode() == Crouch){

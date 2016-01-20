@@ -3,14 +3,15 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
-
 public class VentanaJuego {
+
+	public JFrame frame;
 	public VentanaJuego(int w, int h, String title, Juego juego){
 		juego.setPreferredSize(new Dimension(w,h));
 		juego.setMaximumSize(new Dimension(w, h));
 		juego.setMinimumSize(new Dimension(w, h));
 		
-		JFrame frame = new JFrame(title);
+		frame = new JFrame(title);
 		frame.add(juego);
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -18,5 +19,8 @@ public class VentanaJuego {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		juego.start();
+	}
+	public void close(){
+		frame.dispose();
 	}
 }

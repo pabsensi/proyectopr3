@@ -6,6 +6,6 @@ package framework;
  *
  */
 public enum ObjectId {
-	Player(),Enemigos(), Bullet(), Enemy(), Bat(), Block();
+	Player(),Enemigos(), Bullet(), Enemy(), Block();
 	
 }

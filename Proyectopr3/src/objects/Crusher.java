@@ -16,6 +16,7 @@ import framework.GameObject;
 import framework.ObjectId;
 
 public class Crusher extends Enemy {
+	long tiempoAtaque = 0;
 	private boolean attack = false;
 	private Animator animador;
 	private float gravity = 0.5f;
@@ -64,6 +65,10 @@ public class Crusher extends Enemy {
 					movingRight = false;
 					movingLeft = false;
 					TempObject.setvelX(getvelX()*2);
+					if(System.currentTimeMillis() - tiempoAtaque >= 1000){
+					((Player) TempObject).setVida();
+					tiempoAtaque = System.currentTimeMillis();
+					}
 				}
 
 				else
@@ -103,6 +108,10 @@ public class Crusher extends Enemy {
 		}if(vida<=0)
 		for(int i =0; i<object.size(); i++){
 			GameObject TempObject = object.get(i);
+
+			if(TempObject instanceof Player){
+				((Player)TempObject).setPuntuacion(30);
+			}
 			if(TempObject.equals(this)){
 				object.remove(i);
 			}

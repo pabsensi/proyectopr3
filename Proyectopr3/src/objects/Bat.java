@@ -16,11 +16,12 @@ import framework.GameObject;
 import framework.ObjectId;
 
 public class Bat extends Enemy {
+	long tiempoAtaque = 0;
 	private boolean up = false, down = false;
 	private float firstY;
 	private Animator animador;
 	private BufferedImage sprite;
-	private int spriteWidth, spriteHeight;
+	private int spriteHeight;
 	private ArrayList<BufferedImage> currentAnim = new ArrayList<>();
 	private final String default_anim = "flying";
 	private HashMap<String, ArrayList<BufferedImage>> spriteHash = new HashMap<String, ArrayList<BufferedImage>>();
@@ -35,7 +36,6 @@ public class Bat extends Enemy {
 		currentAnim = spriteHash.get(default_anim);
 		sprite = currentAnim.get(0);
 		spriteHeight = sprite.getHeight();
-		spriteWidth = sprite.getWidth();
 		animador = new Animator(currentAnim);
 	}
 	private void Collision(ArrayList<GameObject> object){
@@ -45,9 +45,15 @@ public class Bat extends Enemy {
 			if(this.getBoundsRight().intersects( TempObject.getBounds()) || this.getBoundsLeft().intersects(TempObject.getBounds())){
 				object.remove(i);
 		}
-				
-					
 			}
+		if(TempObject instanceof Player){
+			if(this.getBounds().intersects(TempObject.getBounds())){
+				if(System.currentTimeMillis() - tiempoAtaque >= 1000){
+				((Player) TempObject).setVida();
+				tiempoAtaque = System.currentTimeMillis();
+				}
+			}
+		}
 		}
 	}
 	public void tick(ArrayList<GameObject> object)  {
@@ -63,6 +69,10 @@ public class Bat extends Enemy {
 		}if(vida<=0)
 		for(int i =0; i<object.size(); i++){
 			GameObject TempObject = object.get(i);
+
+			if(TempObject instanceof Player){
+				((Player)TempObject).setPuntuacion(10);
+			}
 			if(TempObject.equals(this)){
 				object.remove(i);
 			}

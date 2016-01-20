@@ -1,14 +1,17 @@
 package objects;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
+
+import javax.imageio.ImageIO;
 
 import pruebas.Animator;
 import sprite.player.SpriteListCreator;
@@ -21,18 +24,34 @@ import framework.ObjectId;
  *
  */
 public class Player extends GameObject {
+
+	private int puntuacion = 0;
+	public int getPuntuacion() {
+		return puntuacion;
+	}
+	public void setPuntuacion(int puntos) {
+		this.puntuacion += puntos;
+	}
+	int vida = 5;
+	public int getVida() {
+		return vida;
+	}
+	public void setVida() {
+		this.vida -= 1;
+	}
 	int numGranadas = 4;
 	public int getNumGranadas() {
 		return numGranadas;
 	}
-	public void setNumGranadas(int numGranadas) {
-		this.numGranadas = numGranadas;
+	public void setNumGranadas() {
+		this.numGranadas -= 1;
 	}
+	private BufferedImage corazon;
 	private boolean crouching = false;
 	private Animator animador;
 	private float gravity = 0.5f;
 	private BufferedImage sprite;
-	private int spriteWidth, spriteHeight;
+	private int spriteHeight;
 	private ArrayList<BufferedImage> currentAnim = new ArrayList<>();
 	private final String default_anim = "running_right";
 	private HashMap<String, ArrayList<BufferedImage>> spriteHash = new HashMap<String, ArrayList<BufferedImage>>();
@@ -48,12 +67,17 @@ public class Player extends GameObject {
 	 */
 	public Player(float x, float y, ObjectId id) {
 		super(x, y, id);
+		try {
+			corazon = ImageIO.read(new File("resources/corazon.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		facingRight = true;
 		spriteHash = SpriteListCreator.SpriteHashCreator(new File("resources/Player"));
 		currentAnim = spriteHash.get(default_anim);
 		sprite = currentAnim.get(0);
 		spriteHeight = sprite.getHeight();
-		spriteWidth = sprite.getWidth();
 		animador = new Animator(currentAnim);
 		// TODO Auto-generated constructor stub
 	}
@@ -170,8 +194,11 @@ public class Player extends GameObject {
 				animador.setFrames(spriteHash.get("running_right"));
 			else
 				animador.setFrames(spriteHash.get("running_left"));
+		if(y>600)
+			vida=0;
+		}
 			
-	}
+			
 
 	public void setCrouching(boolean crouching) {
 		this.crouching = crouching;
@@ -181,6 +208,11 @@ public class Player extends GameObject {
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
 		g.drawImage(sprite, (int)x, (int)y, null);
+		for(int i=0; i<vida*85; i+=85)
+			g.drawImage(corazon,  i+ (int)x-300, 0, null);
+		g.setColor(Color.black);
+		g.setFont(new Font("Arial", Font.BOLD, 30));
+		g.drawString("Puntuacion: " + puntuacion, (int) x + 200, 30);
 		Graphics2D g2d= (Graphics2D) g;
 		g.setColor(Color.red);
 		g2d.draw(getBounds());
