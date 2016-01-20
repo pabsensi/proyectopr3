@@ -213,12 +213,12 @@ public class Player extends GameObject {
 		g.setColor(Color.black);
 		g.setFont(new Font("Arial", Font.BOLD, 30));
 		g.drawString("Puntuacion: " + puntuacion, (int) x + 200, 30);
-		Graphics2D g2d= (Graphics2D) g;
-		g.setColor(Color.red);
-		g2d.draw(getBounds());
-		g2d.draw(getBoundsTop());
-		g2d.draw(getBoundsLeft());
-		g2d.draw(getBoundsRight());
+//		Graphics2D g2d= (Graphics2D) g;
+//		g.setColor(Color.red);
+//		g2d.draw(getBounds());
+//		g2d.draw(getBoundsTop());
+//		g2d.draw(getBoundsLeft());
+//		g2d.draw(getBoundsRight());
 	}
 
 	@Override

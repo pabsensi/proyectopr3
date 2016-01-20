@@ -1,7 +1,9 @@
 package niveles;
 
 import juego.Juego;
+import objects.Bat;
 import objects.Block;
+import objects.Crusher;
 import framework.Handler;
 import framework.ObjectId;
 
@@ -10,6 +12,13 @@ public class Nivel1 {
 	public static int createLevel(Handler handler) {
 		// TODO Auto-generated constructor stub
 
+		handler.addObject(new Crusher(600, 200, ObjectId.Enemy));
+		handler.addObject(new Crusher(1000, 200, ObjectId.Enemy));
+		handler.addObject(new Crusher(1800, 200, ObjectId.Enemy));
+		handler.addObject(new Crusher(2000, 200, ObjectId.Enemy));
+		handler.addObject(new Crusher(2500, 200, ObjectId.Enemy));
+		for(int i=2600; i<4000; i+=100 )
+			handler.addObject(new Bat(i, 400, ObjectId.Enemy));
 		for(int i =0; i<3200 ; i += 32)
 		handler.addObject(new Block(i, Juego.HEIGHT-32, ObjectId.Block, "grass.png"));
 		for(int i=Juego.WIDTH/3;i< (int)(Juego.WIDTH*2)/3;i+=32){ 

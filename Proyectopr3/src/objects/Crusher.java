@@ -77,7 +77,7 @@ public class Crusher extends Enemy {
 		}
 		for(int i =0; i<object.size(); i++){
 			GameObject TempObject = object.get(i);
-		if(TempObject instanceof Projectile){
+		if(TempObject instanceof Bullet){
 			if(this.getBoundsRight().intersects( TempObject.getBounds()) || this.getBoundsLeft().intersects(TempObject.getBounds())){
 			object.remove(i);
 		}
@@ -174,11 +174,11 @@ public class Crusher extends Enemy {
 		// TODO Auto-generated method stub
 		g.drawImage(sprite, (int)x, (int)y, null);
 		Graphics2D g2d= (Graphics2D) g;
-		g.setColor(Color.yellow);
-		g2d.draw(getBounds());
-		g2d.draw(getBoundsTop());
-		g2d.draw(getBoundsLeft());
-		g2d.draw(getBoundsRight());
+//		g.setColor(Color.yellow);
+//		g2d.draw(getBounds());
+//		g2d.draw(getBoundsTop());
+//		g2d.draw(getBoundsLeft());
+//		g2d.draw(getBoundsRight());
 	}
 
 	@Override

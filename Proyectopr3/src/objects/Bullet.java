@@ -60,9 +60,10 @@ public class Bullet extends Projectile {
 			if(TempObject instanceof Enemy)
 				if(this.getBounds().intersects(((Enemy) TempObject).getBoundsRight()) || this.getBounds().intersects(((Enemy) TempObject).getBoundsLeft())){
 					((Enemy)TempObject).setVida(danyo);
+					
+				
 	}}
 	}
-
 
 
 

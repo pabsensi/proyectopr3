@@ -19,7 +19,9 @@ public class Grenade extends Projectile {
 	public int getDaño() {
 		return danyo;
 	}
-
+	protected double antPosX, antPosY;
+	protected long antTiempo;
+	protected long tiempo;
 	long tiempoExplosion;
 	boolean explode = false;
 	private HashMap<String, ArrayList<BufferedImage>> spriteHash = new HashMap<String, ArrayList<BufferedImage>>();
@@ -51,6 +53,7 @@ public class Grenade extends Projectile {
 					animador.setFrames(spriteHash.get("explosion"));
 					velY = 0;
 					((Enemy)TempObject).setVida(danyo);
+					calcChoqueExacto(((Enemy)TempObject).getBounds(), antPosX, antPosY, antTiempo, x, y, tiempo, 2000);
 				}
 			}
 				else if(TempObject instanceof Block){
@@ -68,9 +71,13 @@ public class Grenade extends Projectile {
 	@Override
 	public void tick(ArrayList<GameObject> objectlist) {
 		// TODO Auto-generated method stub
+
+		antPosX = x; antPosY = y; antTiempo = tiempo;
+		tiempo = System.currentTimeMillis();
 		Collision(objectlist);
 		if(explode){
 			sprite = animador.sprite;
+			
 			velY= 0;
 			velX= 0;
 			animador.update(System.currentTimeMillis());
@@ -90,6 +97,27 @@ public class Grenade extends Projectile {
 
 	}
 
+	private void calcChoqueExacto( Rectangle bounds, double x1, double y1, double t1, double x2, double y2, double t2, int numRec ) {
+		if (numRec==0) {  // Caso base
+			double distX2 = getX()+getBounds().getWidth()/2-x2-bounds.getWidth()/2;
+			double distY2 = getY()+getBounds().getHeight()/2-y2-bounds.getHeight()/2;
+			double dist2 = Math.sqrt( distX2*distX2 + distY2*distY2 );
+			System.out.println( "  Choque preciso: " + t2 + " en (" + x2 + "," + y2 + ") - " + 
+					"distancia " + (dist2 - (getBounds().getWidth()+ bounds.getWidth())) );
+		} else {  // Caso general
+			double xMed = (x2+x1)/2; double yMed = (y2+y1)/2;  double tMed = (t2+t1)/2;
+			double distXmed = getX()+getBounds().getWidth()/2-x2-bounds.getWidth()/2;
+			double distYmed = getY()+getBounds().getHeight()/2-y2-bounds.getHeight()/2;
+			double distMed = Math.sqrt( distXmed*distXmed + distYmed*distYmed ) - (getBounds().getWidth()+ bounds.getWidth());
+			System.out.println( "  Punto medio choque: " + tMed + " en (" + xMed + "," + yMed + ") - " + 
+					"distancia " + distMed );
+			if (distMed>0) {  // Hacia la derecha
+				calcChoqueExacto( bounds, xMed, yMed, tMed, x2, y2, t2, numRec-1);
+			} else {   // Hacia la izquierda
+				calcChoqueExacto( bounds, x1, y1, t1, xMed, yMed, tMed, numRec-1);
+			}
+		}
+	}
 	@Override
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
